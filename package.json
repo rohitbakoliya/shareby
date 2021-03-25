@@ -1,0 +1,75 @@
+{
+  "name": "share-clipboard",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "start:server": "babel-node server/index.js",
+    "watch:client": "cd client && yarn start",
+    "watch:server": "nodemon --exec babel-node server/index.js",
+    "dev": "concurrently \"yarn watch:server\" \"yarn watch:client\"",
+    "prod": "yarn build:client && cross-env NODE_ENV=production yarn watch:server",
+    "build:client": "cd client && yarn build",
+    "build:server": "babel server --out-dir dist",
+    "build": "yarn build:client && yarn build:server",
+    "heroku-prebuild": "cd client && yarn install --dev",
+    "heroku-postbuild": "yarn build",
+    "clean": "rimraf node_modules client/node_modules",
+    "lint": "eslint \"**/*.{js,jsx}\"",
+    "lint:fix": "eslint \"**/*.{js,jsx}\" --fix",
+    "format": "prettier \"**/*.{js,jsx,css}\" --write",
+    "format:staged": "pretty-quick --staged",
+    "lf": "yarn lint && yarn format"
+  },
+  "author": "Rohit Bakoliya",
+  "license": "MIT",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "(server|client)/**/*.{js,jsx}": [
+      "yarn format:staged",
+      "eslint --cache --fix"
+    ]
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-mongo-sanitize": "^2.0.2",
+    "express-rate-limit": "^5.2.6",
+    "express-static-gzip": "^2.1.1",
+    "helmet": "^4.4.1",
+    "http-status-codes": "^2.1.4",
+    "mongoose": "^5.12.2",
+    "morgan": "^1.10.0",
+    "xss-clean": "^0.1.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.13.10",
+    "@babel/core": "^7.13.10",
+    "@babel/node": "^7.13.12",
+    "@babel/preset-env": "^7.13.12",
+    "babel-eslint": "^10.1.0",
+    "concurrently": "^6.0.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^7.22.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-promise": "^4.3.1",
+    "eslint-plugin-security": "^1.4.0",
+    "husky": "^5.2.0",
+    "lint-staged": "^10.5.4",
+    "nodemon": "^2.0.7",
+    "prettier": "^2.2.1",
+    "pretty-quick": "^3.1.0",
+    "rimraf": "^3.0.2"
+  }
+}
