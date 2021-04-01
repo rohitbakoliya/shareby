@@ -15,7 +15,24 @@ export const getAllPastes = async (req, res) => {
   } catch (err) {
     return res
       .status(httpStatus.INTERNAL_SERVER_ERROR)
-      .json({ error: `something went wrong fetching pastes` });
+      .json({ error: `something went wrong while fetching pastes` });
+  }
+};
+
+/**
+ * @desc    to get recent public pastes
+ * @route   GET /api/pastes/recents
+ * @access  public
+ */
+export const getRecentPublicPastes = async (req, res) => {
+  const MX_PASTES = 20;
+  try {
+    const pastes = await Paste.find({ access: 'public' });
+    return res.status(httpStatus.OK).json({ data: pastes.slice(0, MX_PASTES) });
+  } catch (err) {
+    return res
+      .status(httpStatus.INTERNAL_SERVER_ERROR)
+      .json({ error: `something went wrong while getting recent public pastes` });
   }
 };
 
@@ -40,7 +57,7 @@ export const createPaste = async (req, res) => {
         .status(httpStatus.UNPROCESSABLE_ENTITY)
         .json({ error: 'Password is required for creating a protected paste' });
     }
-    //TODO: when paste access is private and user is not logged in
+    // TODO: when paste access is private and user is not logged in
 
     const url = nanoid(8);
     const paste = new Paste({
@@ -147,5 +164,33 @@ export const protectedPaste = async (req, res) => {
     return res.status(httpStatus.OK).json({ data: paste });
   } catch (err) {
     return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ error: `something went wrong` });
+  }
+};
+
+/**
+ * @desc    to view raw paste
+ * @route   GET /api/pastes/:url/raw
+ * @access  public
+ */
+export const rawPaste = async (req, res) => {
+  let url = req.params.url;
+  const { error, value } = validateUrl(url);
+  url = value;
+
+  if (error)
+    return res.status(httpStatus.UNPROCESSABLE_ENTITY).json({ error: error.details[0].message });
+  try {
+    const paste = await Paste.findOne({ url });
+    if (!paste)
+      return res.status(httpStatus.NOT_FOUND).json({ error: `paste not found with ${url} url` });
+
+    if (paste.access !== 'public') {
+      return res
+        .status(httpStatus.FORBIDDEN)
+        .json({ error: `Access to this paste is not allowed` });
+    }
+    return res.send(paste.body);
+  } catch (err) {
+    return res.status(httpStatus.INTERNAL_SERVER_ERROR).send(`something went wrong`);
   }
 };
