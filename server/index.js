@@ -15,7 +15,7 @@ import routes from './routes/index.routes';
 import * as errorHandler from './middlewares/errorHandler';
 import './config/db';
 
-const PORT = process.env.PORT || 6000;
+const PORT = process.env.PORT || 5000;
 
 const app = express();
 

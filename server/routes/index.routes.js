@@ -5,7 +5,7 @@ import pasteRoutes from './paste.route';
 const router = express.Router();
 
 // paste routes
-router.use('/paste', pasteRoutes);
+router.use('/pastes', pasteRoutes);
 
 // other routes
 router.use('/*', (req, res) => {

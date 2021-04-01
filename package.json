@@ -46,8 +46,10 @@
     "express-static-gzip": "^2.1.1",
     "helmet": "^4.4.1",
     "http-status-codes": "^2.1.4",
+    "joi": "^17.4.0",
     "mongoose": "^5.12.2",
     "morgan": "^1.10.0",
+    "nanoid": "^3.1.22",
     "xss-clean": "^0.1.1"
   },
   "devDependencies": {
