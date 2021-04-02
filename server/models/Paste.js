@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 
+// eslint-disable-next-line no-unused-vars
 const UserAccessSchema = new mongoose.Schema(
   {
     _userId: {
@@ -40,7 +41,7 @@ const PasteSchema = new mongoose.Schema(
     url: {
       type: String,
       unique: true,
-      uniqueCaseInsensitive: true, //TODO: go thr again this
+      uniqueCaseInsensitive: true, // TODO: go thr again this
       trim: true,
       required: true,
     },
