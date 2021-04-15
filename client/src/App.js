@@ -1,12 +1,13 @@
+import React from 'react';
+import MainRouter from 'routes/routes';
 import './App.css';
-import Editor from './components/Editor/CodeEditor';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <Editor />
-    </div>
+    <React.Fragment>
+      <MainRouter />
+    </React.Fragment>
   );
-}
+};
 
 export default App;

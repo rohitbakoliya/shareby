@@ -1,1 +1,2 @@
-export { default as rTabs } from './rTabs';
+export * from './rTabs';
+export * from './getms';
