@@ -7,9 +7,6 @@ const OptionsWrapper = styled.div`
   .ant-typography {
     text-align: center;
   }
-  .ant-form-item-label {
-    text-align: left;
-  }
 `;
 const layout = {
   labelCol: { span: 8 },
@@ -29,7 +26,13 @@ const Options = () => {
   return (
     <OptionsWrapper>
       <Typography.Title level={3}>Sharing Settings</Typography.Title>
-      <Form {...layout} onFinish={onFinish} initialValues={{ expireAt: 'Never' }} name="options">
+      <Form
+        {...layout}
+        onFinish={onFinish}
+        initialValues={{ expireAt: 'Never' }}
+        name="options"
+        labelAlign="left"
+      >
         <Form.Item label="Expiration Time" name="expireAt">
           <Select>
             {expirationList.map(exp => (
