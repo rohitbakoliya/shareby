@@ -19,8 +19,8 @@ const IndexPage = () => {
   );
 
   const handleLangChange = langName => {
-    console.log(langName);
-    console.log(defaultCodes);
+    // console.log(langName);
+    // console.log(defaultCodes);
     const lang = languages.find(lang => lang.name === langName);
     setLanguage(lang);
     setCode((defaultCodes && defaultCodes[lang.id]) || examples[lang.id]);

@@ -1,13 +1,14 @@
 import Layout from 'layout';
-import { useParams } from 'react-router-dom';
+import { ShowSharedWrapper } from './index.style';
+import AccessCheck from './AccessCheck';
 
 const ShowShared = () => {
-  const { url } = useParams();
-
   return (
     <>
       <Layout>
-        <div>url: {url}</div>
+        <ShowSharedWrapper>
+          <AccessCheck />
+        </ShowSharedWrapper>
       </Layout>
     </>
   );

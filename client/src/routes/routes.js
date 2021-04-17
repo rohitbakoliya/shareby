@@ -1,3 +1,4 @@
+import NotFound from 'pages/404';
 import IndexPage from 'pages/IndexPage';
 import ShowShared from 'pages/ShowShared';
 import { BrowserRouter, Switch } from 'react-router-dom';
@@ -9,7 +10,7 @@ const MainRouter = () => (
       {/* Private Routes */}
       <PublicRoute path="/" exact component={IndexPage} />
       <PublicRoute path="/:url" exact component={ShowShared} />
-      <PublicRoute component={() => <div>404, page not found!</div>} />
+      <PublicRoute component={NotFound} />
     </Switch>
   </BrowserRouter>
 );
