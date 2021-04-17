@@ -1,12 +1,21 @@
-import { Typography, Form, Input, Select, Checkbox, Button } from 'antd';
+import { Typography, Form, Input, Select, Checkbox, Button, message } from 'antd';
 import LangValContext from 'contexts/langValContext';
 import { useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import { http } from 'utils';
 import { expirationList } from './config';
 
 const OptionsWrapper = styled.div`
+  height: 100%;
   .ant-typography {
     text-align: center;
+  }
+  form {
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 `;
 const layout = {
@@ -21,15 +30,37 @@ const centerLayout = {
 };
 
 const Options = () => {
+  const history = useHistory();
+
   const [checked, setChecked] = useState(false);
   const { code, language } = useContext(LangValContext);
 
   // to create new paste
-  const onFinish = values => {
+  const onFinish = async values => {
+    const key = 'pasteCreator';
+    message.loading({ content: 'Creating paste...', key });
+    const { expireAfterSeconds } = values;
     let paste = { ...values };
+    delete paste.expireAfterSeconds;
+    if (!paste.password) {
+      delete paste.password;
+      paste.access = 'public';
+    } else {
+      paste.access = 'protected';
+    }
+    if (expireAfterSeconds !== -1) {
+      paste.expireAt = new Date(Date.now() + expireAfterSeconds).toISOString();
+    }
     paste.body = code;
     paste.language = language.name;
-    console.log(paste);
+    try {
+      const { data } = await http.post('/api/pastes', paste);
+      message.success({ content: 'New Paste created 🎉', key, duration: 4 });
+      console.log(data);
+      history.push(`/${data.url}`);
+    } catch (err) {
+      message.error({ content: err, key, duration: 3 });
+    }
   };
   return (
     <OptionsWrapper>
@@ -37,11 +68,11 @@ const Options = () => {
       <Form
         {...layout}
         onFinish={onFinish}
-        initialValues={{ expireAt: -1 }}
+        initialValues={{ expireAfterSeconds: -1 }}
         name="options"
         labelAlign="left"
       >
-        <Form.Item label="Expiration Time" name="expireAt">
+        <Form.Item label="Expiration Time" name="expireAfterSeconds">
           <Select>
             {expirationList.map(exp => (
               <Select.Option key={exp.name} value={exp.ms}>

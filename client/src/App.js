@@ -1,11 +1,15 @@
 import React from 'react';
 import MainRouter from 'routes/routes';
-import './App.css';
+import { Router } from 'react-router';
+import { history } from 'utils';
+import 'styles/App.css';
 
 const App = () => {
   return (
     <React.Fragment>
-      <MainRouter />
+      <Router history={history}>
+        <MainRouter />
+      </Router>
     </React.Fragment>
   );
 };
