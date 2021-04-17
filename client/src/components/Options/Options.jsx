@@ -1,5 +1,6 @@
 import { Typography, Form, Input, Select, Checkbox, Button } from 'antd';
-import { useState } from 'react';
+import LangValContext from 'contexts/langValContext';
+import { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { expirationList } from './config';
 
@@ -18,10 +19,17 @@ const tailLayout = {
 const centerLayout = {
   wrapperCol: { offset: 6, span: 18 },
 };
+
 const Options = () => {
   const [checked, setChecked] = useState(false);
+  const { code, language } = useContext(LangValContext);
+
+  // to create new paste
   const onFinish = values => {
-    console.log(values);
+    let paste = { ...values };
+    paste.body = code;
+    paste.language = language.name;
+    console.log(paste);
   };
   return (
     <OptionsWrapper>
@@ -29,7 +37,7 @@ const Options = () => {
       <Form
         {...layout}
         onFinish={onFinish}
-        initialValues={{ expireAt: 'Never' }}
+        initialValues={{ expireAt: -1 }}
         name="options"
         labelAlign="left"
       >
@@ -48,7 +56,18 @@ const Options = () => {
           </Checkbox>
         </Form.Item>
         {checked && (
-          <Form.Item {...tailLayout} name="password">
+          <Form.Item
+            {...tailLayout}
+            name="password"
+            rules={[
+              {
+                required: true,
+                type: 'string',
+                max: 10,
+                min: 4,
+              },
+            ]}
+          >
             <Input.Password />
           </Form.Item>
         )}

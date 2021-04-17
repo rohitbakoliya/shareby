@@ -1,8 +1,10 @@
-import { Select, Col, Row, Tooltip } from 'antd';
+import { Select, Col, Row, Tooltip, Divider } from 'antd';
 import { FullscreenOutlined } from '@ant-design/icons';
 import { languages } from './config';
 import styled from 'styled-components';
 import Settings from './settings/Settings';
+import { useContext } from 'react';
+import LangValContext from 'contexts/langValContext';
 
 const HeaderWrapper = styled.div`
   height: 30px;
@@ -13,8 +15,8 @@ const HeaderWrapper = styled.div`
   }
 `;
 
-const EditorHeader = ({ setLanguage, language }) => {
-  const handleLangChange = lang => setLanguage(lang);
+const EditorHeader = () => {
+  const { language, handleLangChange } = useContext(LangValContext);
 
   const handleFullScreen = () => {
     const element = document.getElementById('code--container');
@@ -32,7 +34,7 @@ const EditorHeader = ({ setLanguage, language }) => {
             showSearch
             placeholder="Select a language"
             optionFilterProp="children"
-            value={language}
+            value={language.name}
             style={{ width: 180 }}
             onChange={handleLangChange}
           >
@@ -42,13 +44,16 @@ const EditorHeader = ({ setLanguage, language }) => {
           </Select>
         </Col>
         <Col>
-          <Tooltip title="fullscreen mode">
-            <FullscreenOutlined
-              onClick={handleFullScreen}
-              style={{ fontSize: '22px', marginRight: '12px' }}
+          <Row justify="space-between" align="stretch">
+            <Tooltip title="fullscreen mode">
+              <FullscreenOutlined onClick={handleFullScreen} style={{ fontSize: '22px' }} />
+            </Tooltip>
+            <Divider
+              type="vertical"
+              style={{ marginLeft: '6px', marginRight: '12px', height: '22px' }}
             />
-          </Tooltip>
-          <Settings />
+            <Settings />
+          </Row>
         </Col>
       </Row>
     </HeaderWrapper>

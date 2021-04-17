@@ -1,5 +1,6 @@
 import MonacoEditor from '@monaco-editor/react';
 import CodeEditorContext from 'contexts/codeEditorContext';
+import LangValContext from 'contexts/langValContext';
 import React, { useContext } from 'react';
 import { PropagateLoader as Loader } from 'react-spinners';
 
@@ -20,10 +21,11 @@ const intellisense = {
   wordBasedSuggestions: true,
 };
 
-// code--container for full screen code editor
+// `code--container` for full screen code editor
 
-const Editor = React.memo(({ language, value }) => {
+const Editor = React.memo(() => {
   const { es } = useContext(CodeEditorContext);
+  const { code, handleCodeChange, language } = useContext(LangValContext);
   let options = { ...es.options };
   delete options.intellisense;
   if (es.options.intellisense) {
@@ -31,15 +33,15 @@ const Editor = React.memo(({ language, value }) => {
   } else {
     options = { ...options, ...noIntellisense };
   }
-  console.log(options);
   return (
     <div id="code--container" style={{ height: '100%' }}>
       <MonacoEditor
         theme={es.theme}
-        options={{ ...options }}
-        language={language}
+        options={options}
+        language={language.name}
         loading={<Loader color="lightblue" />}
-        value={value}
+        value={code}
+        onChange={handleCodeChange}
       />
     </div>
   );
