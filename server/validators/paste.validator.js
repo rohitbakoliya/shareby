@@ -1,5 +1,5 @@
 import Joi from 'joi';
-
+import { languages } from '../utils';
 export const emailValidator = Joi.string()
   .required()
   .min(5)
@@ -7,19 +7,11 @@ export const emailValidator = Joi.string()
   .email({ minDomainSegments: 2 })
   .trim();
 
-export const languageValidator = Joi.string().valid(
-  'Text',
-  'Markdown',
-  'C',
-  'C++',
-  'HTML',
-  'CSS',
-  'JSON',
-  'Java',
-  'JavaScript'
-);
+export const languageValidator = Joi.string()
+  .required()
+  .valid(...languages);
 
-export const passwordValidator = Joi.string().required().min(4).max(50);
+export const passwordValidator = Joi.string().required().min(4).max(10);
 
 export const validateUrl = url => Joi.string().required().validate(url);
 
@@ -37,7 +29,7 @@ export const validatePaste = paste => {
     language: languageValidator,
     password: Joi.string().trim().min(4).max(50),
     access: Joi.string().required().valid('public', 'protected', 'private'),
-    expireAt: Joi.date().required(),
+    expireAt: Joi.date(),
     createdAt: Joi.date().default(Date.now),
   });
   return PasteSchema.validate(paste);

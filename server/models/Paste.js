@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
+import { languages } from '../utils';
 
 // eslint-disable-next-line no-unused-vars
 const UserAccessSchema = new mongoose.Schema(
@@ -35,8 +36,8 @@ const PasteSchema = new mongoose.Schema(
     },
     language: {
       type: String,
-      enum: ['Text', 'Markdown', 'C', 'C++', 'HTML', 'CSS', 'JSON', 'Java', 'JavaScript'],
-      default: 'Text',
+      enum: languages,
+      required: true,
     },
     url: {
       type: String,
@@ -57,7 +58,6 @@ const PasteSchema = new mongoose.Schema(
     },
     expireAt: {
       type: Date,
-      required: true,
     },
     createdAt: {
       type: Date,
@@ -104,7 +104,10 @@ PasteSchema.methods.isValidPassword = async function (password) {
 };
 
 // https://docs.mongodb.com/manual/tutorial/expire-data/#expire-documents-at-a-specific-clock-time
-PasteSchema.index({ expireAt: 1 }, { expireAfterSeconds: 0 });
+PasteSchema.index(
+  { expireAt: 1 },
+  { expireAfterSeconds: 0, partialFilterExpression: { expireAt: { $exists: true } } }
+);
 
 const Paste = mongoose.model('Paste', PasteSchema);
 export default Paste;
