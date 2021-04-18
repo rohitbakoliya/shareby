@@ -1,14 +1,17 @@
 import { useEffect, useState } from 'react';
-import { Row, Spin, message } from 'antd';
+import { Row, Spin } from 'antd';
 import { useParams } from 'react-router-dom';
 import { http } from 'utils';
-import ShowPublic from './ShowPublic';
+import ShowSharedPaste from './ShowSharedPaste';
+import ShowProtected from './ShowProtected';
+import ErrorHandler from 'components/ErrorHandler';
 
 const AccessCheck = () => {
   const { url } = useParams();
   const [access, setAccess] = useState();
   const [pasteData, setPasteData] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState();
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -24,7 +27,11 @@ const AccessCheck = () => {
           setIsLoading(false);
         }
       } catch (err) {
-        message.error({ content: err, duration: 3 });
+        setError({
+          status: err.status,
+          statusText: err.statusText,
+          error: err.data.error,
+        });
         setIsLoading(false);
       }
     };
@@ -38,12 +45,17 @@ const AccessCheck = () => {
       </Row>
     );
   }
-  if (access !== 'public') {
-    return <>you don't have access to view this</>;
+
+  // check for errors
+  if (error) {
+    return <ErrorHandler {...error} />;
   }
 
+  if (access === 'private') return <>Private Paste </>;
+  else if (access === 'protected') return <ShowProtected url={url} />;
+
   // for public pastes
-  return <ShowPublic data={pasteData} />;
+  return <ShowSharedPaste data={pasteData} />;
 };
 
 export default AccessCheck;

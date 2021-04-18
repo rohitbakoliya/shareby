@@ -1,23 +1,13 @@
-import { Result, Button } from 'antd';
 import Layout from 'layout';
-import { useHistory } from 'react-router-dom';
+import ErrorHandler from 'components/ErrorHandler';
 
 const NotFound = () => {
-  const hisory = useHistory();
-  const goBack = () => {
-    hisory.replace('/');
-  };
   return (
     <Layout>
-      <Result
-        status="404"
-        title="Not Found"
-        subTitle="Sorry, the page you visited does not exist."
-        extra={
-          <Button type="link" danger onClick={goBack}>
-            Return Home
-          </Button>
-        }
+      <ErrorHandler
+        status={404}
+        statusText="Page Not Found"
+        error="Sorry, the page you visited does not exist."
       />
     </Layout>
   );

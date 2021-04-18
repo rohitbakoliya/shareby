@@ -12,7 +12,7 @@ httpInstance.interceptors.response.use(
     if (axios.isCancel(error)) {
       console.log(`request cancelled`);
     }
-    return Promise.reject(error.response.data.error);
+    return Promise.reject(error.response);
   }
 );
 export { httpInstance as http };

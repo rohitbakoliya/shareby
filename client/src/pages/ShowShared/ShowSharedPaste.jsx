@@ -1,7 +1,7 @@
 import MonacoEditor from '@monaco-editor/react';
 import { PropagateLoader as Loader } from 'react-spinners';
 
-const ShowPublic = ({ data }) => {
+const ShowSharedPaste = ({ data }) => {
   return (
     <>
       <MonacoEditor
@@ -14,4 +14,4 @@ const ShowPublic = ({ data }) => {
   );
 };
 
-export default ShowPublic;
+export default ShowSharedPaste;

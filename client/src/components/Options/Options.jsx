@@ -59,7 +59,7 @@ const Options = () => {
       console.log(data);
       history.push(`/${data.url}`);
     } catch (err) {
-      message.error({ content: err, key, duration: 3 });
+      message.error({ content: err.data.error, key, duration: 3 });
     }
   };
   return (
