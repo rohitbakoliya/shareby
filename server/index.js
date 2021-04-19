@@ -10,7 +10,6 @@ import morgan from 'morgan';
 import compression from 'compression';
 import rateLimit from 'express-rate-limit';
 import mongoSanitize from 'express-mongo-sanitize';
-import xss from 'xss-clean';
 import routes from './routes/index.routes';
 import * as errorHandler from './middlewares/errorHandler';
 import './config/db';
@@ -45,7 +44,6 @@ if (app.get('env') === 'development') {
   app.use(morgan('dev'));
 }
 app.use(mongoSanitize()); // sanitizes user-supplied data to prevent MongoDB Operator Injection.
-app.use(xss()); // sanitize user input
 
 // rate limiter
 app.set('trust proxy', 1);
