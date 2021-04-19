@@ -86,7 +86,9 @@ export const checkAccess = async (req, res) => {
   try {
     const paste = await Paste.findOne({ url: value });
     if (!paste) {
-      return res.status(httpStatus.NOT_FOUND).json({ error: `paste not found with ${url} url` });
+      return res
+        .status(httpStatus.NOT_FOUND)
+        .json({ error: `The paste you are looking for is not found!` });
     }
     const data = {
       // _id: paste._id,
@@ -135,8 +137,7 @@ export const protectedPaste = async (req, res) => {
   let url = req.params.url;
   const { error, value } = validateUrl(url);
   url = value;
-  if (error)
-    return res.status(httpStatus.UNPROCESSABLE_ENTITY).json({ error: error.details[0].message });
+  if (error) return res.status(httpStatus.NOT_FOUND).json({ error: error.details[0].message });
 
   const {
     error: error1,
@@ -148,7 +149,9 @@ export const protectedPaste = async (req, res) => {
   try {
     const paste = await Paste.findOne({ url });
     if (!paste)
-      return res.status(httpStatus.NOT_FOUND).json({ error: `paste not found with ${url} url` });
+      return res
+        .status(httpStatus.NOT_FOUND)
+        .json({ error: `The paste you are looking for is not found!` });
 
     // make sure paste is only a protected pastes
     if (paste.access !== 'protected')
@@ -189,7 +192,7 @@ export const rawPaste = async (req, res) => {
         .status(httpStatus.FORBIDDEN)
         .json({ error: `Access to this paste is not allowed` });
     }
-    return res.send(paste.body);
+    return res.set('content-type', 'text/plain').send(paste.body);
   } catch (err) {
     return res.status(httpStatus.INTERNAL_SERVER_ERROR).send(`something went wrong`);
   }

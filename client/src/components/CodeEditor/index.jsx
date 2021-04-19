@@ -11,13 +11,15 @@ const initOptions = {
   wordWrap: 'off',
 };
 
-const CodeEditor = () => {
+const CodeEditor = ({ defaultOptions }) => {
   const favOptions = JSON.parse(localStorage.getItem('favOptions'));
   const favTheme = localStorage.getItem('editorTheme');
   const [es, setEs] = useState({
     theme: favTheme || 'light',
-    options: favOptions || initOptions,
+    options: { ...(favOptions || initOptions), ...defaultOptions },
   });
+
+  console.log(es);
   const updateOptions = options => {
     setEs(_es => ({
       ..._es,

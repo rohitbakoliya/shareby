@@ -1,10 +1,13 @@
 import { Select, Col, Row, Tooltip, Divider } from 'antd';
-import { FullscreenOutlined } from '@ant-design/icons';
+import { FullscreenOutlined, ForkOutlined } from '@ant-design/icons';
 import { languages } from './config';
 import styled from 'styled-components';
 import Settings from './settings/Settings';
 import { useContext } from 'react';
 import LangValContext from 'contexts/langValContext';
+import CodeEditorContext from 'contexts/codeEditorContext';
+import { useHistory } from 'react-router-dom';
+import { noop } from 'utils';
 
 const HeaderWrapper = styled.div`
   height: 30px;
@@ -16,7 +19,14 @@ const HeaderWrapper = styled.div`
 `;
 
 const EditorHeader = () => {
-  const { language, handleLangChange } = useContext(LangValContext);
+  const history = useHistory();
+
+  const { language, code, handleLangChange } = useContext(LangValContext);
+  const {
+    es: {
+      options: { readOnly },
+    },
+  } = useContext(CodeEditorContext);
 
   const handleFullScreen = () => {
     const element = document.getElementById('code--container');
@@ -25,6 +35,9 @@ const EditorHeader = () => {
     }
   };
 
+  const handlForkPaste = () => {
+    history.push('/', { language, code });
+  };
   return (
     <HeaderWrapper>
       <Row align="middle" justify="space-between">
@@ -36,7 +49,7 @@ const EditorHeader = () => {
             optionFilterProp="children"
             value={language.name}
             style={{ width: 180 }}
-            onChange={handleLangChange}
+            onChange={readOnly ? noop : handleLangChange}
           >
             {languages.map(lang => (
               <Select.Option key={lang.name}>{lang.name}</Select.Option>
@@ -45,6 +58,17 @@ const EditorHeader = () => {
         </Col>
         <Col>
           <Row justify="space-between" align="stretch">
+            {readOnly && (
+              <>
+                <Tooltip title="fork paste to edit">
+                  <ForkOutlined onClick={handlForkPaste} style={{ fontSize: '22px' }} />
+                </Tooltip>
+                <Divider
+                  type="vertical"
+                  style={{ marginLeft: '6px', marginRight: '12px', height: '22px' }}
+                />
+              </>
+            )}
             <Tooltip title="fullscreen mode">
               <FullscreenOutlined onClick={handleFullScreen} style={{ fontSize: '22px' }} />
             </Tooltip>

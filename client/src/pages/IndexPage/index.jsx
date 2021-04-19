@@ -1,28 +1,34 @@
 import { useState } from 'react';
 import { Row, Col } from 'antd';
-import Editor from 'components/CodeEditor';
+import CodeEditor from 'components/CodeEditor';
 import { languages, examples } from 'components/CodeEditor/config';
-import Options from 'components/Options/Options';
+import SharingOptions from 'components/SharingOptions';
 import LangValContext from 'contexts/langValContext';
 import Layout from 'layout';
 import { IndexWrapper } from './index.style';
+import { useLocation } from 'react-router-dom';
 
 const IndexPage = () => {
+  const { state: routerState } = useLocation();
+
   const initLang = languages.find(lang => lang.name === 'plaintext');
   const favLang = JSON.parse(localStorage.getItem('favLanguage'));
   const defaultCodes = JSON.parse(localStorage.getItem('defaultTemplates'));
 
-  const [language, setLanguage] = useState(favLang || initLang);
+  const [language, setLanguage] = useState(
+    (routerState && routerState.language) || favLang || initLang
+  );
   const [code, setCode] = useState(
-    (favLang && ((defaultCodes && defaultCodes[favLang.id]) || examples[favLang.id])) ||
+    (routerState && routerState.code) ||
+      (favLang && ((defaultCodes && defaultCodes[favLang.id]) || examples[favLang.id])) ||
       examples[initLang.id]
   );
 
   const handleLangChange = langName => {
-    // console.log(langName);
-    // console.log(defaultCodes);
     const lang = languages.find(lang => lang.name === langName);
     setLanguage(lang);
+    // !BUG: changing languages should not loose written code
+    // ?REFACTOR: save codes of all the languages
     setCode((defaultCodes && defaultCodes[lang.id]) || examples[lang.id]);
   };
 
@@ -36,10 +42,10 @@ const IndexPage = () => {
         <IndexWrapper>
           <Row wrap={false} className="main-content">
             <Col flex="auto" className="main-content--col">
-              <Editor />
+              <CodeEditor />
             </Col>
             <Col flex="400px" className="main-content--col">
-              <Options />
+              <SharingOptions />
             </Col>
           </Row>
         </IndexWrapper>

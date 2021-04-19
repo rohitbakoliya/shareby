@@ -11,6 +11,7 @@
     "@testing-library/user-event": "^12.1.10",
     "antd": "^4.14.1",
     "axios": "^0.21.1",
+    "file-saver": "^2.0.5",
     "history": "^5.0.0",
     "moment": "^2.29.1",
     "prop-types": "^15.7.2",
@@ -19,6 +20,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-spinners": "^0.10.6",
+    "react-timeago": "^5.2.0",
     "styled-components": "^5.2.3",
     "web-vitals": "^1.0.1"
   },

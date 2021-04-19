@@ -1,7 +1,7 @@
 import { Button, Form, Input, Card, Typography, message } from 'antd';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { http } from 'utils';
+import { http, pasteURL } from 'utils';
 import ShowSharedPaste from './ShowSharedPaste';
 
 const ShowProtectedWrapper = styled.div`
@@ -40,8 +40,8 @@ const ShowProtected = ({ url }) => {
           <Typography.Title
             level={4}
             copyable={{
-              text: `http://localhost:3000/${url}`,
-              tooltips: ['Copy paste link to clipboard', 'Copied!'],
+              text: pasteURL(url),
+              tooltips: ['Copy paste URL to clipboard', 'Copied!'],
             }}
           >
             Locked Paste
