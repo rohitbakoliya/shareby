@@ -1,4 +1,4 @@
-import { Typography, Card, Row, Col, Tooltip } from 'antd';
+import { Typography, Card, Row, Col, Tooltip, message } from 'antd';
 import {
   CalendarOutlined,
   ClockCircleOutlined,
@@ -8,12 +8,15 @@ import {
   CodeOutlined,
   CheckOutlined,
   FileImageOutlined,
+  LoadingOutlined,
 } from '@ant-design/icons';
 import TimeAgo from 'react-timeago';
 import FileSaver from 'file-saver';
 import styled from 'styled-components';
-import { copyToClipboard, pasteURL, upperFirst } from 'utils';
+import qs from 'qs';
+import { copyToClipboard, http, pasteURL, upperFirst } from 'utils';
 import { useState } from 'react';
+import { carbonDefaultParams } from 'utils/carbonDefaults';
 
 const OptionsWrapper = styled.div`
   height: 100%;
@@ -41,6 +44,7 @@ const OptionsWrapper = styled.div`
 
 const SharedOptions = ({ data }) => {
   const [copied, setCopied] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleCopyCode = () => {
     if (copied) return;
@@ -55,7 +59,25 @@ const SharedOptions = ({ data }) => {
     const blob = new Blob([data.body], { type: 'text/plain;charset=utf-8' });
     FileSaver.saveAs(blob, `${data.url}.txt`);
   };
-  const createCarbonImage = () => {};
+
+  const createCarbonImage = async () => {
+    setLoading(true);
+    try {
+      const resp = await http.post(
+        `https://carbon-ss.herokuapp.com/api/carbon-ss?${qs.stringify(carbonDefaultParams)}`,
+        {
+          data: data.body,
+        }
+      );
+      const imageBuffer = Buffer.from(resp.image, 'base64');
+      FileSaver.saveAs(new Blob([imageBuffer]), `${data.url}.png`);
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      message.error(`something went wrong while download image, please try again later`);
+      setLoading(false);
+    }
+  };
 
   return (
     <OptionsWrapper>
@@ -83,8 +105,15 @@ const SharedOptions = ({ data }) => {
                 <CodeOutlined key="raw" />
               </Typography.Link>
             </Tooltip>,
-            <Tooltip title="create image" placement="bottom">
-              <FileImageOutlined key="carbon" onClick={createCarbonImage} />
+            <Tooltip
+              title={loading ? 'downloading image...' : 'generate image from code'}
+              placement="bottom"
+            >
+              {loading ? (
+                <LoadingOutlined key="carbon" />
+              ) : (
+                <FileImageOutlined key="carbon" onClick={createCarbonImage} />
+              )}
             </Tooltip>,
           ]}
         >

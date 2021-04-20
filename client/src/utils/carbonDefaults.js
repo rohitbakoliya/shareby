@@ -1,0 +1,16 @@
+export const carbonDefaultParams = {
+  backgroundColor: '#E6EDF8',
+  dropShadow: true,
+  dropShadowBlurRadius: '68px',
+  dropShadowOffsetY: '20px',
+  fontFamily: 'Fira Code',
+  fontSize: '14px',
+  lineHeight: '133%',
+  lineNumbers: false,
+  paddingHorizontal: '35px',
+  paddingVertical: '49px',
+  squaredImage: false,
+  theme: 'seti',
+  widthAdjustment: true,
+  language: 'auto',
+};
