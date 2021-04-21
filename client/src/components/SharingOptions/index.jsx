@@ -33,7 +33,7 @@ const Options = () => {
   const history = useHistory();
 
   const [checked, setChecked] = useState(false);
-  const { code, language } = useContext(LangValContext);
+  const { codes, language } = useContext(LangValContext);
 
   // to create new paste
   const onFinish = async values => {
@@ -51,7 +51,7 @@ const Options = () => {
     if (expireAfterSeconds !== -1) {
       paste.expireAt = new Date(Date.now() + expireAfterSeconds).toISOString();
     }
-    paste.body = code;
+    paste.body = codes[language.id];
     paste.language = language.name;
     try {
       const { data } = await http.post('/api/pastes', paste);

@@ -12,7 +12,7 @@ import { EditorHeaderWrapper } from './Editor.style';
 
 const EditorHeader = ({ activeTab, handleActiveTab }) => {
   const history = useHistory();
-  const { language, code, handleLangChange } = useContext(LangValContext);
+  const { language, codes, handleLangChange } = useContext(LangValContext);
   const {
     es: {
       options: { readOnly },
@@ -27,7 +27,7 @@ const EditorHeader = ({ activeTab, handleActiveTab }) => {
   };
 
   const handlForkPaste = () => {
-    history.push('/', { language, code });
+    history.push('/', { language, code: codes[language] });
   };
 
   return (
@@ -56,14 +56,14 @@ const EditorHeader = ({ activeTab, handleActiveTab }) => {
                   onClick={() => handleActiveTab(0)}
                   className={`tab--col-md ${activeTab === 0 && 'active'}`}
                 >
-                  <EditCodeIcon style={{ fontSize: '22px' }} />
+                  <EditCodeIcon style={{ fontSize: '18px' }} />
                   <span className="text-span">Edit</span>
                 </Col>
                 <Col
                   onClick={() => handleActiveTab(1)}
                   className={`tab--col-md ${activeTab === 1 && 'active'}`}
                 >
-                  <EyeIcon style={{ fontSize: '22px' }} />
+                  <EyeIcon style={{ fontSize: '18px' }} />
                   <span className="text-span">Preview</span>
                 </Col>
               </>

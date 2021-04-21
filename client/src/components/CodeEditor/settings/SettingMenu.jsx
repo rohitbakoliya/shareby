@@ -15,7 +15,7 @@ const SettingMenu = () => {
     toggleTheme,
     updateOptions,
   } = useContext(CodeEditorContext);
-  const { code, language } = useContext(LangValContext);
+  const { codes, language } = useContext(LangValContext);
 
   const handleChange = () => {
     const _options = { ...form.getFieldsValue() };
@@ -33,12 +33,12 @@ const SettingMenu = () => {
     let temp = localStorage.getItem('defaultTemplates');
     temp = JSON.parse(temp);
     if (temp) {
-      temp[language.id] = code;
+      temp[language.id] = codes[language.id];
       temp = JSON.stringify(temp);
       localStorage.setItem('defaultTemplates', temp);
     } else {
       let templates = {};
-      templates[language.id] = code;
+      templates[language.id] = codes[language.id];
       templates = JSON.stringify(templates);
       localStorage.setItem('defaultTemplates', templates);
     }

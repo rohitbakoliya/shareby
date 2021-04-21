@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Row, Col } from 'antd';
 import CodeEditor from 'components/CodeEditor';
 import { languages, examples } from 'components/CodeEditor/config';
@@ -6,10 +6,19 @@ import SharingOptions from 'components/SharingOptions';
 import LangValContext from 'contexts/langValContext';
 import Layout from 'layout';
 import { IndexWrapper } from './index.style';
-import { useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 const IndexPage = () => {
   const { state: routerState } = useLocation();
+  const history = useHistory();
+
+  // to clear history state
+  useEffect(() => {
+    if (routerState) {
+      history.replace('/', undefined);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const initLang = languages.find(lang => lang.name === 'plaintext');
   const favLang = JSON.parse(localStorage.getItem('favLanguage'));
@@ -18,27 +27,37 @@ const IndexPage = () => {
   const [language, setLanguage] = useState(
     (routerState && routerState.language) || favLang || initLang
   );
-  const [code, setCode] = useState(
-    (routerState && routerState.code) ||
-      (favLang && ((defaultCodes && defaultCodes[favLang.id]) || examples[favLang.id])) ||
-      examples[initLang.id]
+
+  // adding initail codes for all languages
+  const [codes, setCodes] = useState(
+    Object.fromEntries(
+      languages.map(({ id }) => [
+        id,
+        (routerState &&
+          routerState.language &&
+          routerState.language.id === id &&
+          routerState.code) ||
+          (defaultCodes && defaultCodes[id]) ||
+          examples[id],
+      ])
+    )
   );
 
   const handleLangChange = langName => {
     const lang = languages.find(lang => lang.name === langName);
     setLanguage(lang);
-    // !BUG: changing languages should not loose written code
-    // ?REFACTOR: save codes of all the languages
-    setCode((defaultCodes && defaultCodes[lang.id]) || examples[lang.id]);
   };
 
   const handleCodeChange = value => {
-    setCode(value);
+    setCodes({
+      ...codes,
+      [language.id]: value,
+    });
   };
 
   return (
     <Layout>
-      <LangValContext.Provider value={{ language, handleLangChange, code, handleCodeChange }}>
+      <LangValContext.Provider value={{ language, handleLangChange, codes, handleCodeChange }}>
         <IndexWrapper>
           <Row wrap={false} className="main-content">
             <Col flex="auto" className="main-content--col">

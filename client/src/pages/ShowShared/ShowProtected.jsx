@@ -1,5 +1,6 @@
 import { Button, Form, Input, Card, Typography, message } from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { http, pasteURL } from 'utils';
 import ShowSharedPaste from './ShowSharedPaste';
@@ -16,13 +17,27 @@ const ShowProtectedWrapper = styled.div`
 `;
 
 const ShowProtected = ({ url }) => {
+  const { state: routerState } = useLocation();
+  const history = useHistory();
+
   const [isLoading, setIsLoading] = useState(false);
   const [pasteData, setPasteData] = useState();
+
+  /**
+   * paste data is stored in history state 😁
+   * so no need to enter password again after every refresh
+   */
+  useEffect(() => {
+    if (routerState) {
+      setPasteData(routerState);
+    }
+  }, [routerState]);
 
   const onFinish = async values => {
     setIsLoading(true);
     try {
       const { data } = await http.post(`/api/pastes/${url}`, values);
+      history.replace(`/${url}`, data);
       setPasteData(data);
       setIsLoading(false);
     } catch (err) {

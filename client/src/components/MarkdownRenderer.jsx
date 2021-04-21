@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactMarkdown from 'react-markdown';
+import RM from 'react-markdown';
 import styled from 'styled-components';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { nord as theme } from 'react-syntax-highlighter/dist/esm/styles/prism';
@@ -9,10 +9,11 @@ const MDWrapper = styled.div`
   height: 100%;
 `;
 
+const ReactMarkdown = React.memo(RM);
+
 const components = {
   code({ node, inline, className, children, ...props }) {
     const match = /language-(\w+)/.exec(className || '');
-    console.log(children, inline);
     if (inline) {
       return (
         <SyntaxHighlighter
