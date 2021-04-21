@@ -71,7 +71,7 @@ const EditorHeader = ({ activeTab, handleActiveTab }) => {
           </Row>
         </Col>
         <Col>
-          <Row justify="space-between" align="stretch">
+          <Row justify="space-between" align="stretch" className="header-options">
             {readOnly && (
               <>
                 <Tooltip title="fork paste to edit">

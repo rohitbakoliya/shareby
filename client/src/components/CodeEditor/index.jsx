@@ -25,7 +25,6 @@ const CodeEditor = ({ defaultOptions }) => {
     options: { ...(favOptions || initOptions), ...defaultOptions },
   });
 
-  console.log(es);
   const updateOptions = options => {
     setEs(_es => ({
       ..._es,
