@@ -39,6 +39,10 @@ const OptionsWrapper = styled.div`
   .ant-card-actions .anticon {
     font-size: 18px;
     color: rgba(0, 0, 0, 0.85);
+    transition: color 0.3s;
+    &:hover {
+      color: #1890ff;
+    }
   }
 `;
 
@@ -106,7 +110,7 @@ const SharedOptions = ({ data }) => {
               </Typography.Link>
             </Tooltip>,
             <Tooltip
-              title={loading ? 'downloading image...' : 'generate image from code'}
+              title={loading ? 'generating image...' : 'generate image from code'}
               placement="bottom"
             >
               {loading ? (

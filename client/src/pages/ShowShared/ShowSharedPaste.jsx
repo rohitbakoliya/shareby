@@ -8,7 +8,9 @@ import { useState } from 'react';
 
 const ShowSharedPaste = ({ data }) => {
   const [language, setLanguage] = useState(languages.find(lang => lang.name === data.language));
-  const [code, setCode] = useState(data.body);
+  const [codes, setCodes] = useState({
+    [language.id]: data.body,
+  });
 
   const handleLangChange = langName => {
     // console.log(langName);
@@ -18,12 +20,15 @@ const ShowSharedPaste = ({ data }) => {
   };
 
   const handleCodeChange = value => {
-    setCode(value);
+    setCodes({
+      ...codes,
+      [language.id]: value,
+    });
   };
 
   return (
     <>
-      <LangValContext.Provider value={{ language, handleLangChange, code, handleCodeChange }}>
+      <LangValContext.Provider value={{ language, handleLangChange, codes, handleCodeChange }}>
         <IndexWrapper>
           <Row wrap={false} className="main-content">
             <Col flex="auto" className="main-content--col">

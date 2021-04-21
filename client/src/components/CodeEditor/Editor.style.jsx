@@ -19,6 +19,14 @@ export const EditorHeaderWrapper = styled.div`
   span {
     margin-right: 8px;
   }
+
+  .header-options .anticon {
+    transition: color 0.3s;
+    &:hover {
+      color: #40a9ff;
+    }
+  }
+
   .tab--col-md {
     cursor: pointer;
     display: flex;

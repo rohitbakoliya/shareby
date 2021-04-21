@@ -11,7 +11,7 @@ import { CodeEditorWrapper } from './Editor.style';
 
 const Editor = React.memo(({ activeTab }) => {
   const { es } = useContext(CodeEditorContext);
-  const { code, handleCodeChange, language } = useContext(LangValContext);
+  const { codes, handleCodeChange, language } = useContext(LangValContext);
   let options = { ...es.options };
   delete options.intellisense;
   if (es.options.intellisense) {
@@ -19,18 +19,17 @@ const Editor = React.memo(({ activeTab }) => {
   } else {
     options = { ...options, ...noIntellisense };
   }
-
   return (
     <CodeEditorWrapper id={activeTab === 0 ? 'code--container' : undefined} activeTab={activeTab}>
       {activeTab === 1 ? (
-        <MarkdownRenderer children={code} />
+        <MarkdownRenderer children={codes[language.id]} />
       ) : (
         <MonacoEditor
           theme={es.theme}
           options={options}
           language={language.name}
           loading={<Loader color="lightblue" />}
-          value={code}
+          value={codes[language.id]}
           onChange={handleCodeChange}
         />
       )}
