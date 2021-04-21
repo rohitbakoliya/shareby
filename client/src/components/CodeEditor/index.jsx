@@ -12,6 +12,12 @@ const initOptions = {
 };
 
 const CodeEditor = ({ defaultOptions }) => {
+  // active tab -> used in markdown preview
+  const [activeTab, setActiveTab] = useState(0);
+  const handleActiveTab = tabInd => {
+    setActiveTab(tabInd);
+  };
+
   const favOptions = JSON.parse(localStorage.getItem('favOptions'));
   const favTheme = localStorage.getItem('editorTheme');
   const [es, setEs] = useState({
@@ -39,8 +45,8 @@ const CodeEditor = ({ defaultOptions }) => {
   return (
     <>
       <CodeEditorContext.Provider value={{ es, updateOptions, toggleTheme }}>
-        <EditorHeader />
-        <Editor />
+        <EditorHeader activeTab={activeTab} handleActiveTab={handleActiveTab} />
+        <Editor activeTab={activeTab} />
       </CodeEditorContext.Provider>
     </>
   );

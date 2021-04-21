@@ -1,26 +1,17 @@
 import { Select, Col, Row, Tooltip, Divider } from 'antd';
 import { FullscreenOutlined, ForkOutlined } from '@ant-design/icons';
 import { languages } from './config';
-import styled from 'styled-components';
 import Settings from './settings/Settings';
 import { useContext } from 'react';
 import LangValContext from 'contexts/langValContext';
 import CodeEditorContext from 'contexts/codeEditorContext';
 import { useHistory } from 'react-router-dom';
 import { noop } from 'utils';
+import { EyeIcon, EditCodeIcon } from 'components/CustomIcons';
+import { EditorHeaderWrapper } from './Editor.style';
 
-const HeaderWrapper = styled.div`
-  height: 30px;
-  width: 100%;
-  margin-bottom: 20px;
-  span {
-    margin-right: 8px;
-  }
-`;
-
-const EditorHeader = () => {
+const EditorHeader = ({ activeTab, handleActiveTab }) => {
   const history = useHistory();
-
   const { language, code, handleLangChange } = useContext(LangValContext);
   const {
     es: {
@@ -30,7 +21,7 @@ const EditorHeader = () => {
 
   const handleFullScreen = () => {
     const element = document.getElementById('code--container');
-    if (document.fullscreenEnabled) {
+    if (element && document.fullscreenEnabled) {
       element.requestFullscreen();
     }
   };
@@ -38,23 +29,46 @@ const EditorHeader = () => {
   const handlForkPaste = () => {
     history.push('/', { language, code });
   };
+
   return (
-    <HeaderWrapper>
+    <EditorHeaderWrapper>
       <Row align="middle" justify="space-between">
         <Col>
-          <span>Language: </span>
-          <Select
-            showSearch
-            placeholder="Select a language"
-            optionFilterProp="children"
-            value={language.name}
-            style={{ width: 180 }}
-            onChange={readOnly ? noop : handleLangChange}
-          >
-            {languages.map(lang => (
-              <Select.Option key={lang.name}>{lang.name}</Select.Option>
-            ))}
-          </Select>
+          <Row justify="space-between" align="stretch">
+            <Col>
+              <span>Language: </span>
+              <Select
+                showSearch
+                placeholder="Select a language"
+                optionFilterProp="children"
+                value={language.name}
+                style={{ width: 180 }}
+                onChange={readOnly ? noop : handleLangChange}
+              >
+                {languages.map(lang => (
+                  <Select.Option key={lang.name}>{lang.name}</Select.Option>
+                ))}
+              </Select>
+            </Col>
+            {language.name === 'markdown' && (
+              <>
+                <Col
+                  onClick={() => handleActiveTab(0)}
+                  className={`tab--col-md ${activeTab === 0 && 'active'}`}
+                >
+                  <EditCodeIcon style={{ fontSize: '22px' }} />
+                  <span className="text-span">Edit</span>
+                </Col>
+                <Col
+                  onClick={() => handleActiveTab(1)}
+                  className={`tab--col-md ${activeTab === 1 && 'active'}`}
+                >
+                  <EyeIcon style={{ fontSize: '22px' }} />
+                  <span className="text-span">Preview</span>
+                </Col>
+              </>
+            )}
+          </Row>
         </Col>
         <Col>
           <Row justify="space-between" align="stretch">
@@ -80,7 +94,7 @@ const EditorHeader = () => {
           </Row>
         </Col>
       </Row>
-    </HeaderWrapper>
+    </EditorHeaderWrapper>
   );
 };
 export default EditorHeader;

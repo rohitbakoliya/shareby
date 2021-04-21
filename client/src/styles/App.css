@@ -1,7 +1,1 @@
 @import '~antd/dist/antd.css';
-
-@media screen and (min-width: 992px) {
-  body {
-    overflow-y: hidden;
-  }
-}
