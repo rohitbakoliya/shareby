@@ -1,3 +1,4 @@
+import { message } from 'antd';
 import Layout from 'layout';
 import { useEffect, useState } from 'react';
 import { http } from 'utils';
@@ -12,12 +13,11 @@ const RecentPastes = () => {
         const { data } = await http.get(`/api/pastes/recents`);
         setList(data);
       } catch (err) {
-        console.log(err);
+        message.error({ content: err.data.error, duration: 3 });
       }
     };
     fetchRecent();
   }, []);
-  console.log(list);
   return (
     <Layout>
       <RecentPasteWrapper>

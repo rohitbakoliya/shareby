@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Row, Col } from 'antd';
 import CodeEditor from 'components/CodeEditor';
 import { languages, examples } from 'components/CodeEditor/config';
@@ -6,19 +6,22 @@ import SharingOptions from 'components/SharingOptions';
 import LangValContext from 'contexts/langValContext';
 import Layout from 'layout';
 import { IndexWrapper } from './index.style';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 const IndexPage = () => {
   const { state: routerState } = useLocation();
-  const history = useHistory();
 
-  // to clear history state
-  useEffect(() => {
-    if (routerState) {
-      history.replace('/', undefined);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  /**
+   * Not good idea
+   const history = useHistory();
+   // to clear history state
+   useEffect(() => {
+     if (routerState) {
+       history.replace('/', undefined);
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+    */
 
   const initLang = languages.find(lang => lang.name === 'plaintext');
   const favLang = JSON.parse(localStorage.getItem('favLanguage'));
