@@ -24,12 +24,7 @@ app.set('env', process.env.NODE_ENV);
 // middlewares
 app.use(
   helmet({
-    contentSecurityPolicy: {
-      directives: {
-        ...helmet.contentSecurityPolicy.getDefaultDirectives(),
-        'script-src': ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
-      },
-    },
+    contentSecurityPolicy: false,
   })
 );
 app.use(cors());
