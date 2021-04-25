@@ -36,6 +36,7 @@
     ]
   },
   "dependencies": {
+    "@babel/polyfill": "^7.12.1",
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "compression": "^1.7.4",
@@ -59,7 +60,6 @@
     "@babel/node": "^7.13.12",
     "@babel/preset-env": "^7.13.12",
     "babel-eslint": "^10.1.0",
-    "babel-polyfill": "^6.26.0",
     "babel-register": "^6.26.0",
     "concurrently": "^6.0.0",
     "cross-env": "^7.0.3",
