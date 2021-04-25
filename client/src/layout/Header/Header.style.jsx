@@ -4,7 +4,7 @@ export const HeaderWrapper = styled.header`
   width: 100%;
   min-height: 60px;
   margin-bottom: 20px;
-  background-color: #325288;
+  background-color: ${p => p.theme.colors.primary};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,8 +13,9 @@ export const HeaderWrapper = styled.header`
   a {
     color: inherit;
     font-size: 18px;
+    transition: 0.2s;
     &:hover {
-      color: #40a9ff;
+      transform: scale(1.03);
     }
     padding: 0 10px;
   }

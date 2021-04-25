@@ -23,7 +23,7 @@ export const EditorHeaderWrapper = styled.div`
   .header-options .anticon {
     transition: color 0.3s;
     &:hover {
-      color: #40a9ff;
+      color: ${p => p.theme.colors.primary};
     }
   }
 
@@ -45,7 +45,7 @@ export const EditorHeaderWrapper = styled.div`
     }
   }
   .tab--col-md.active {
-    color: #40a9ff;
-    border-bottom: 2px solid #40a9ff;
+    color: ${p => p.theme.colors.primary};
+    border-bottom: 2px solid ${p => p.theme.colors.primary};
   }
 `;

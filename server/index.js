@@ -22,21 +22,16 @@ const app = express();
 app.set('env', process.env.NODE_ENV);
 
 // middlewares
-if (app.get('env') === 'production') {
-  app.use(helmet()); // security headers
-} else {
-  app.use(
-    helmet({
-      contentSecurityPolicy: {
-        directives: {
-          ...helmet.contentSecurityPolicy.getDefaultDirectives(),
-          // since server is running on different PORT
-          'script-src': ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
-        },
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+        'script-src': ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
       },
-    })
-  );
-}
+    },
+  })
+);
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json({ limit: '10kb' }));
@@ -51,7 +46,7 @@ app.use(
   '/api/',
   rateLimit({
     windowMs: 30 * 60 * 1000, // 30 mins
-    max: 500,
+    max: 300,
   })
 );
 

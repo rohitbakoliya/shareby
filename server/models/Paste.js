@@ -30,7 +30,7 @@ const PasteSchema = new mongoose.Schema(
     body: {
       type: String,
       minLength: 4,
-      maxLength: 4000,
+      maxLength: 6000,
       trim: true,
       required: true,
     },
