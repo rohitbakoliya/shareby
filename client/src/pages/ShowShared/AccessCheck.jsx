@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import { Row, Spin } from 'antd';
 import { useParams } from 'react-router-dom';
 import { http } from 'utils';
-import ShowSharedPaste from './ShowSharedPaste';
+import ShowCode from './ShowCode';
+import ShowText from './ShowText';
 import ShowProtected from './ShowProtected';
 import ErrorHandler from 'components/ErrorHandler';
 
@@ -45,7 +46,6 @@ const AccessCheck = () => {
       </Row>
     );
   }
-
   // check for errors
   if (error) {
     return <ErrorHandler {...error} />;
@@ -55,7 +55,7 @@ const AccessCheck = () => {
   else if (access === 'protected') return <ShowProtected url={url} />;
 
   // for public pastes
-  return <ShowSharedPaste data={pasteData} />;
+  return pasteData.type === 'code' ? <ShowCode data={pasteData} /> : <ShowText data={pasteData} />;
 };
 
 export default AccessCheck;

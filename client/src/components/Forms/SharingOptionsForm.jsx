@@ -1,6 +1,6 @@
 import { Button, Form, Input, Select } from 'antd';
 import Checkbox from 'antd/lib/checkbox/Checkbox';
-import { expirationList } from './SharingOptions/config';
+import { expirationList } from '../SharingOptions/config';
 import PropTypes from 'prop-types';
 
 const layout = {

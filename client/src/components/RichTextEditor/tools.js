@@ -32,3 +32,23 @@ export const EDITOR_JS_TOOLS = {
   inlineCode: InlineCode,
   simpleImage: SimpleImage,
 };
+
+export const initialBlocks = [
+  {
+    type: 'paragraph',
+    data: {
+      text: 'rohit <b>bakoliya</b>',
+    },
+  },
+  {
+    type: 'table',
+    data: {
+      content: [
+        ['a', 'b'],
+        ['c', 'd'],
+        ['e', 'f'],
+        ['g', 'h'],
+      ],
+    },
+  },
+];

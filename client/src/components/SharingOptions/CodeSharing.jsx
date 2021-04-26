@@ -1,25 +1,12 @@
 import { Typography, message } from 'antd';
-import SharingOptionsForm from 'components/SharingOptionsForm';
+import SharingOptionsForm from 'components/Forms/SharingOptionsForm';
 import LangValContext from 'contexts/langValContext';
 import { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import styled from 'styled-components';
 import { http } from 'utils';
+import { CSOptionsWrapper } from './Options.styles';
 
-const OptionsWrapper = styled.div`
-  height: 100%;
-  .ant-typography {
-    text-align: center;
-  }
-  form {
-    height: inherit;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-`;
-
-const Options = () => {
+const CodeSharingOptions = () => {
   const history = useHistory();
   const [checked, setChecked] = useState(false);
   const { codes, language } = useContext(LangValContext);
@@ -52,11 +39,11 @@ const Options = () => {
     }
   };
   return (
-    <OptionsWrapper>
+    <CSOptionsWrapper>
       <Typography.Title level={3}>Sharing Settings</Typography.Title>
       <SharingOptionsForm onFinish={onFinish} checked={checked} setChecked={setChecked} />
-    </OptionsWrapper>
+    </CSOptionsWrapper>
   );
 };
 
-export default Options;
+export default CodeSharingOptions;

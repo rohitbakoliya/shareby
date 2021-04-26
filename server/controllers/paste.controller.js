@@ -57,9 +57,9 @@ export const createPaste = async (req, res) => {
         .status(httpStatus.UNPROCESSABLE_ENTITY)
         .json({ error: 'Password is required for creating a protected paste' });
     }
-    // TODO: when paste access is private and user is not logged in
 
     const url = nanoid(8);
+
     const paste = new Paste({
       ...value,
       url,

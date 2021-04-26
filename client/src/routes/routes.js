@@ -9,10 +9,11 @@ import PublicRoute from './PublicRoute';
 const MainRouter = () => (
   <BrowserRouter>
     <Switch>
-      {/* Private Routes */}
+      {/* Public Routes */}
       <PublicRoute path="/" exact component={IndexPage} />
-      <PublicRoute path="/r" component={RichEditor} />
-      <PublicRoute path="/recent" component={RecentPastes} />
+      <PublicRoute path="/r" exact component={RichEditor} />
+      <PublicRoute path="/recent" exact component={RecentPastes} />
+      <PublicRoute path="/r/:url" exact component={ShowShared} />
       <PublicRoute path="/:url" exact component={ShowShared} />
       <PublicRoute component={NotFound} />
     </Switch>
