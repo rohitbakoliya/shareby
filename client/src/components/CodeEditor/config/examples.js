@@ -575,10 +575,6 @@ const examples = {
      }
   `),
   19: rTabs(`
-    // @monaco-editor/react is Monaco editor wrapper for easy/one-line integration with React
-    // applications without need of webpack (or other module bundler)
-    // configuration files.
-
     import React, { useState } from "react";
     import ReactDOM from "react-dom";
 
@@ -781,10 +777,21 @@ const examples = {
     Note that by these steps you run the application in development mode. So, you can open the source of it in your preferred text editor and do whatever you want.
 
     To make a production build after the third step run - \`npm run build\` (or \`yarn build\` in case of yarn). After a successful build, you will have a production ready app in the build folder.
-
-    ## License
-
-    [MIT](./LICENSE)
+    
+    \`\`\`js
+    const App = () => {
+      return (
+        <React.Fragment>
+          <ThemeProvider theme={theme}>
+            <Router history={history}>
+              <GlobalStyles />
+              <MainRouter />
+            </Router>
+          </ThemeProvider>
+        </React.Fragment>
+      );
+    };
+    \`\`\`
   `),
   25: ` = CALCULATE(SUM(Sales[SalesAmount]), PREVIOUSQUARTER(Calendar[DateKey]))`,
   26: rTabs(`
