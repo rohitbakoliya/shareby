@@ -19,4 +19,7 @@ export const HeaderWrapper = styled.header`
     }
     padding: 0 10px;
   }
+  .active__tab {
+    color: #40a9ff;
+  }
 `;

@@ -31,6 +31,7 @@ export const validatePaste = paste => {
     access: Joi.string().required().valid('public', 'protected', 'private'),
     expireAt: Joi.date(),
     createdAt: Joi.date().default(Date.now),
+    type: Joi.string().trim().valid('code', 'text').default('code'),
   });
   return PasteSchema.validate(paste);
 };
