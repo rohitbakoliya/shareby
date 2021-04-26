@@ -1,7 +1,7 @@
 import { Row, Col } from 'antd';
 import CodeEditor from 'components/CodeEditor';
 import { languages } from 'components/CodeEditor/config';
-import SharedOptions from 'components/SharedOptions';
+import SharedOptions from 'components/SharedOptions/CodeShared';
 import LangValContext from 'contexts/langValContext';
 import { IndexWrapper } from 'pages/IndexPage/index.style';
 import { useState } from 'react';

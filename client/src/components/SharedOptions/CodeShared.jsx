@@ -12,41 +12,13 @@ import {
 } from '@ant-design/icons';
 import TimeAgo from 'react-timeago';
 import FileSaver from 'file-saver';
-import styled from 'styled-components';
 import qs from 'qs';
 import { copyToClipboard, http, pasteURL, upperFirst } from 'utils';
 import { useState } from 'react';
 import { carbonDefaultParams } from 'utils/carbonDefaults';
+import { SharedOptionsWrapper } from './Options.style';
 
-const OptionsWrapper = styled.div`
-  height: 100%;
-  .ant-typography {
-    text-align: center;
-  }
-  .options--content {
-    height: inherit;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  .ant-col {
-    font-size: 16px;
-    .anticon {
-      font-size: 18px;
-    }
-  }
-
-  .ant-card-actions .anticon {
-    font-size: 18px;
-    color: rgba(0, 0, 0, 0.85);
-    transition: color 0.3s;
-    &:hover {
-      color: #1890ff;
-    }
-  }
-`;
-
-const SharedOptions = ({ data }) => {
+const CodeShared = ({ data }) => {
   const [copied, setCopied] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -84,7 +56,7 @@ const SharedOptions = ({ data }) => {
   };
 
   return (
-    <OptionsWrapper>
+    <SharedOptionsWrapper>
       <Typography.Title level={3}>Paste Details</Typography.Title>
       <div className="options--content">
         <Card
@@ -152,8 +124,8 @@ const SharedOptions = ({ data }) => {
           </Row>
         </Card>
       </div>
-    </OptionsWrapper>
+    </SharedOptionsWrapper>
   );
 };
 
-export default SharedOptions;
+export default CodeShared;

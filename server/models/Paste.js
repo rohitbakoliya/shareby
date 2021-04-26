@@ -2,23 +2,6 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 import { languages } from '../utils';
 
-// eslint-disable-next-line no-unused-vars
-const UserAccessSchema = new mongoose.Schema(
-  {
-    _userId: {
-      type: mongoose.Types.ObjectId,
-      required: true,
-      ref: 'User',
-    },
-    access: {
-      type: String,
-      enum: ['edit', 'view'],
-      required: true,
-    },
-  },
-  { _id: false }
-);
-
 const PasteSchema = new mongoose.Schema(
   {
     title: {
@@ -38,6 +21,11 @@ const PasteSchema = new mongoose.Schema(
       type: String,
       enum: languages,
       required: true,
+    },
+    type: {
+      type: String,
+      enum: ['code', 'text'],
+      default: 'code',
     },
     url: {
       type: String,

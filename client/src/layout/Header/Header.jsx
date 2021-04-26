@@ -1,11 +1,18 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { HeaderWrapper } from './Header.style';
 
 const Header = () => {
   return (
     <HeaderWrapper>
-      <Link to="/">Home</Link>
-      <Link to="/recent">Recent Pastes</Link>
+      <NavLink to="/" exact activeClassName="active__tab">
+        Code Editor
+      </NavLink>
+      <NavLink to="/r" activeClassName="active__tab">
+        Rich Text Editor
+      </NavLink>
+      <NavLink to="/recent" activeClassName="active__tab">
+        Recent Pastes
+      </NavLink>
     </HeaderWrapper>
   );
 };

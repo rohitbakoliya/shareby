@@ -1,9 +1,11 @@
-import { Button, Form, Input, Card, Typography, message } from 'antd';
+import { message } from 'antd';
+import UnlockPasteForm from 'components/Forms/UnlockPasteForm';
 import { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import { http, pasteURL } from 'utils';
-import ShowSharedPaste from './ShowSharedPaste';
+import { http } from 'utils';
+import ShowCode from './ShowCode';
+import ShowText from './ShowText';
 
 const ShowProtectedWrapper = styled.div`
   height: inherit;
@@ -45,41 +47,17 @@ const ShowProtected = ({ url }) => {
       setIsLoading(false);
     }
   };
+
   if (pasteData) {
-    return <ShowSharedPaste data={pasteData} />;
+    return pasteData.type === 'code' ? (
+      <ShowCode data={pasteData} />
+    ) : (
+      <ShowText data={pasteData} />
+    );
   }
   return (
     <ShowProtectedWrapper>
-      <Card
-        title={
-          <Typography.Title
-            level={4}
-            copyable={{
-              text: pasteURL(url),
-              tooltips: ['Copy paste URL to clipboard', 'Copied!'],
-            }}
-          >
-            Locked Paste
-          </Typography.Title>
-        }
-      >
-        <Form onFinish={onFinish}>
-          <Form.Item
-            label="Password"
-            name="password"
-            required
-            rules={[{ required: true, type: 'string', min: 4, max: 10 }]}
-          >
-            <Input.Password />
-          </Form.Item>
-          <br />
-          <Form.Item style={{ textAlign: 'center' }}>
-            <Button loading={isLoading} type="primary" htmlType="submit">
-              Unlock Paste
-            </Button>
-          </Form.Item>
-        </Form>
-      </Card>
+      <UnlockPasteForm onFinish={onFinish} url={url} isLoading={isLoading} />
     </ShowProtectedWrapper>
   );
 };

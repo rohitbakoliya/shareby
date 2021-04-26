@@ -27,7 +27,7 @@ const EditorHeader = ({ activeTab, handleActiveTab }) => {
   };
 
   const handlForkPaste = () => {
-    history.push('/', { language, code: codes[language] });
+    history.push('/', { language, code: codes[language.id] });
   };
 
   return (

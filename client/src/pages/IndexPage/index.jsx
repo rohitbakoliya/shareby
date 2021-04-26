@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Row, Col } from 'antd';
 import CodeEditor from 'components/CodeEditor';
 import { languages, examples } from 'components/CodeEditor/config';
-import SharingOptions from 'components/SharingOptions';
+import CodeSharingOptions from 'components/SharingOptions/CodeSharing';
 import LangValContext from 'contexts/langValContext';
 import Layout from 'layout';
 import { IndexWrapper } from './index.style';
@@ -67,7 +67,7 @@ const IndexPage = () => {
               <CodeEditor />
             </Col>
             <Col flex="400px" className="main-content--col">
-              <SharingOptions />
+              <CodeSharingOptions />
             </Col>
           </Row>
         </IndexWrapper>
