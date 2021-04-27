@@ -751,47 +751,64 @@ const examples = {
     print(fact(a))
   `),
   24: rTabs(`
-    ## Primes
+  ## Getting Started
 
-    It's a playground for examining and playing with prime numbers. It also gives an opportunity to write custom formulas and visualize the results.
+![Product Name Screen Shot](https://github.com/othneildrew/Best-README-Template/raw/master/images/screenshot.png)
 
-    ### Demo
+This is an example of how you may give instructions on setting up your project locally.
+To get a local copy up and running follow these simple example steps.
+  
+### Prerequisites
 
-    You can try it simply by opening this [link](https://primes.surenatoyan.com/)
+This is an example of how to list things you need to use the software and how to install them.
+  * npm
+    \`\`\`bash
+    npm install npm@latest -g
+    \`\`\`
+  
+  ### Installation
+  
+  1. Get a free API Key at [https://example.com](https://example.com)
+  2. Clone the repo
+     \`\`\`bash
+     git clone https://github.com/your_username_/Project-Name.git
+     \`\`\`
+  3. Install NPM packages
+     \`\`\`bash
+     npm install
+     \`\`\`
+  4. Enter your API in \`config.js\`
+     \`\`\`js
+     const API_KEY = 'ENTER YOUR API';
+     \`\`\`
 
-    ### Development
-
-    You also can set up it on your local machine for development (or other) purposes. For that you need:
-
-     - [Nodejs](https://nodejs.org/en/)
-     - npm (it comes with nodejs) - or [yarn](https://yarnpkg.com/en/)
-
-    Run these commands to clone the repository, install dependencies and run the application.
-
-    1) \`git clone https://github.com/SurenAt93/primes.git\`
-    2) \`cd primes\`
-    3) \`npm install\` (or if you are using yarn, just \`yarn\`)
-    4) \`npm run start\` (or \`yarn start\` in case of yarn)
 
     That's it. After, open \`localhost:3000\` in your browser.
     Note that by these steps you run the application in development mode. So, you can open the source of it in your preferred text editor and do whatever you want.
 
     To make a production build after the third step run - \`npm run build\` (or \`yarn build\` in case of yarn). After a successful build, you will have a production ready app in the build folder.
     
-    \`\`\`js
-    const App = () => {
-      return (
-        <React.Fragment>
-          <ThemeProvider theme={theme}>
-            <Router history={history}>
-              <GlobalStyles />
-              <MainRouter />
-            </Router>
-          </ThemeProvider>
-        </React.Fragment>
-      );
-    };
+    **index.html**
+
+    \`\`\`html
+    <body>
+      <noscript>You need to enable JavaScript to run this app.</noscript>
+      <div id="root"></div>
+    </body>
     \`\`\`
+
+    ## Usage
+
+    Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+    
+    ![github stats](https://github-readme-stats.vercel.app/api?username=rohitbakoliya&count_private=true&show_icons=true)
+
+    _For more examples, please refer to the [Documentation](https://example.com)_
+    
+    ## License
+
+    Distributed under the MIT License. See \`LICENSE\` for more information.
+
   `),
   25: ` = CALCULATE(SUM(Sales[SalesAmount]), PREVIOUSQUARTER(Calendar[DateKey]))`,
   26: rTabs(`

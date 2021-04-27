@@ -1,5 +1,6 @@
-import '@babel/polyfill'; // env variables should be loaded first
-/* eslint-disable import/first */ import express from 'express';
+/* eslint-disable import/first */
+import '@babel/polyfill';
+import express from 'express';
 import path from 'path';
 import { config as dotenvConfig } from 'dotenv';
 dotenvConfig();

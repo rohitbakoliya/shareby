@@ -40,6 +40,7 @@ export const languages = [
   'razor',
   'redis',
   'redshift',
+  'richtext',
   'ruby',
   'rust',
   'sb',

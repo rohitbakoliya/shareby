@@ -3,12 +3,11 @@ import {
   ClockCircleOutlined,
   DownloadOutlined,
   FileMarkdownOutlined,
-  FilePdfOutlined,
   ForkOutlined,
   LockOutlined,
 } from '@ant-design/icons';
 import { Card, Col, Row, Tooltip, Typography } from 'antd';
-import { pasteURL, upperFirst } from 'utils';
+import { htmlParser, mdParser, pasteURL, upperFirst } from 'utils';
 import { SharedOptionsWrapper } from './Options.style';
 import TimeAgo from 'react-timeago';
 import FileSaver from 'file-saver';
@@ -21,12 +20,30 @@ const TextShared = ({ data }) => {
   };
 
   const downloadHtml = () => {
-    const blob = new Blob([data.body], { type: 'text/plain;charset=utf-8' });
+    const blocks = JSON.parse(data.body);
+    const html = htmlParser(blocks, data.title);
+    const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
     FileSaver.saveAs(blob, `${data.url}.html`);
   };
+  // ! https://github.com/MrRio/jsPDF/issues/3113
+  // const downloadPdf = () => {
+  //   const blocks = JSON.parse(data.body);
+  //   const html = htmlParser(blocks, data.title);
+  //   const parser = new DOMParser();
+  //   const parsed = parser.parseFromString(html, 'text/html');
+  //   const pdf = new jsPDF('p', 'pt', 'a4');
+  //   console.log(parsed);
+  //   pdf.html(parsed.body.innerHTML, { x: 15, y: 15, filename: `${data.url}`, callback: doc => doc.save() });
+  // };
 
-  const downloadPdf = () => {};
-  const downloadMd = () => {};
+  const downloadMd = () => {
+    const blocks = JSON.parse(data.body);
+    const md = mdParser(blocks);
+    const blob = new Blob([md], { type: 'text/plain;charset=utf-8' });
+    FileSaver.saveAs(blob, `${data.url}.md`);
+  };
+
+  console.log(JSON.parse(data.body));
   return (
     <SharedOptionsWrapper>
       <Typography.Title level={3}>Paste Details</Typography.Title>
@@ -41,9 +58,9 @@ const TextShared = ({ data }) => {
             <Tooltip title="download html" placement="bottom">
               <DownloadOutlined key="download html" onClick={downloadHtml} />
             </Tooltip>,
-            <Tooltip title="download pdf" placement="bottom">
-              <FilePdfOutlined key="download pdf" onClick={downloadPdf} />
-            </Tooltip>,
+            // <Tooltip title="download pdf" placement="bottom">
+            //   <FileMarkdownOutlined key="download pdf" onClick={downloadPdf} />
+            // </Tooltip>,
             <Tooltip title="download markdown" placement="bottom">
               <FileMarkdownOutlined key="download markdown" onClick={downloadMd} />
             </Tooltip>,

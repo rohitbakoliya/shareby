@@ -7,6 +7,7 @@ import PastesTable from './PasteTable';
 
 const RecentPastes = () => {
   const [list, setList] = useState([]);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     const fetchRecent = async () => {
       try {
@@ -14,6 +15,8 @@ const RecentPastes = () => {
         setList(data);
       } catch (err) {
         message.error({ content: err.data.error, duration: 3 });
+      } finally {
+        setLoading(false);
       }
     };
     fetchRecent();
@@ -21,7 +24,7 @@ const RecentPastes = () => {
   return (
     <Layout>
       <RecentPasteWrapper>
-        <PastesTable data={list} />
+        <PastesTable data={list} loading={loading} />
       </RecentPasteWrapper>
     </Layout>
   );

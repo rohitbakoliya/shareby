@@ -13,7 +13,10 @@ const columns = [
   {
     title: 'Language',
     dataIndex: 'language',
-    filters: Array.from(languages).map(lang => ({ value: lang.name, text: lang.name })),
+    filters: [
+      ...Array.from(languages).map(lang => ({ value: lang.name, text: lang.name })),
+      { value: 'richtext', text: 'richtext' },
+    ].sort((a, b) => a.value.localeCompare(b.value)),
     onFilter: (value, record) => value === record.language,
   },
   {
@@ -30,8 +33,9 @@ const columns = [
   },
 ];
 
-const PastesTable = ({ data }) => (
+const PastesTable = ({ data, loading }) => (
   <Table
+    loading={loading}
     rowKey={row => row._id}
     pagination={{ position: ['topRight'], hideOnSinglePage: true }}
     dataSource={data}

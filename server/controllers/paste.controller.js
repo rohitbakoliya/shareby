@@ -1,5 +1,6 @@
 import httpStatus from 'http-status-codes';
-import { nanoid } from 'nanoid';
+import { customAlphabet } from 'nanoid';
+import { alphanumeric } from '../utils';
 import { validatePaste, validateUrl, validatePassword } from '../validators/paste.validator';
 import Paste from '../models/Paste';
 
@@ -25,9 +26,9 @@ export const getAllPastes = async (req, res) => {
  * @access  public
  */
 export const getRecentPublicPastes = async (req, res) => {
-  const MX_PASTES = 20;
+  const MX_PASTES = 100;
   try {
-    const pastes = await Paste.find({ access: 'public' });
+    const pastes = await Paste.find({ access: 'public' }).sort({ createdAt: 1 }).limit(MX_PASTES);
     return res.status(httpStatus.OK).json({ data: pastes.slice(0, MX_PASTES) });
   } catch (err) {
     return res
@@ -58,8 +59,7 @@ export const createPaste = async (req, res) => {
         .json({ error: 'Password is required for creating a protected paste' });
     }
 
-    const url = nanoid(8);
-
+    const url = customAlphabet(alphanumeric, 8)();
     const paste = new Paste({
       ...value,
       url,

@@ -26,7 +26,7 @@ const RichTextSharingOptions = ({ blocks }) => {
       paste.expireAt = new Date(Date.now() + expireAfterSeconds).toISOString();
     }
     paste.body = JSON.stringify(blocks);
-    paste.language = 'json';
+    paste.language = 'richtext';
     paste.type = 'text';
     try {
       const { data } = await http.post('/api/pastes', paste);

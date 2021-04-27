@@ -30,7 +30,6 @@ const PasteSchema = new mongoose.Schema(
     url: {
       type: String,
       unique: true,
-      uniqueCaseInsensitive: true, // TODO: go thr again this
       trim: true,
       required: true,
     },

@@ -13,7 +13,7 @@ import {
 import TimeAgo from 'react-timeago';
 import FileSaver from 'file-saver';
 import qs from 'qs';
-import { copyToClipboard, http, pasteURL, upperFirst } from 'utils';
+import { copyToClipboard, http, pasteURL, SERVER_URL, upperFirst } from 'utils';
 import { useState } from 'react';
 import { carbonDefaultParams } from 'utils/carbonDefaults';
 import { SharedOptionsWrapper } from './Options.style';
@@ -74,10 +74,7 @@ const CodeShared = ({ data }) => {
               {copied ? <CheckOutlined key="copy" /> : <CopyOutlined key="copy" />}
             </Tooltip>,
             <Tooltip title="view raw file" placement="bottom">
-              <Typography.Link
-                target="__blank"
-                href={`http://localhost:5000/api/pastes/${data.url}/raw`}
-              >
+              <Typography.Link target="__blank" href={`${SERVER_URL}/api/pastes/${data.url}/raw`}>
                 <CodeOutlined key="raw" />
               </Typography.Link>
             </Tooltip>,
