@@ -1,11 +1,10 @@
 import { useState } from 'react';
-import { Row, Col } from 'antd';
 import CodeEditor from 'components/CodeEditor';
 import { languages, examples } from 'components/CodeEditor/config';
 import CodeSharingOptions from 'components/SharingOptions/CodeSharing';
 import LangValContext from 'contexts/langValContext';
-import Layout from 'layout';
-import { IndexWrapper } from './index.style';
+import Layout from 'layout/Root';
+import { IndexWrapper, RightContent, LeftContent } from './index.style';
 import { useLocation } from 'react-router-dom';
 
 const IndexPage = () => {
@@ -62,14 +61,12 @@ const IndexPage = () => {
     <Layout>
       <LangValContext.Provider value={{ language, handleLangChange, codes, handleCodeChange }}>
         <IndexWrapper>
-          <Row wrap={false} className="main-content">
-            <Col flex="auto" className="main-content--col">
-              <CodeEditor />
-            </Col>
-            <Col flex="400px" className="main-content--col">
-              <CodeSharingOptions />
-            </Col>
-          </Row>
+          <LeftContent>
+            <CodeEditor />
+          </LeftContent>
+          <RightContent>
+            <CodeSharingOptions />
+          </RightContent>
         </IndexWrapper>
       </LangValContext.Provider>
     </Layout>

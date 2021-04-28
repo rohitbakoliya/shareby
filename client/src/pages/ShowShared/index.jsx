@@ -1,4 +1,4 @@
-import Layout from 'layout';
+import Layout from 'layout/Root';
 import { ShowSharedWrapper } from './index.style';
 import AccessCheck from './AccessCheck';
 

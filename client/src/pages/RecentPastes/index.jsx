@@ -1,5 +1,5 @@
 import { message } from 'antd';
-import Layout from 'layout';
+import Layout from 'layout/Root';
 import { useEffect, useState } from 'react';
 import { http } from 'utils';
 import { RecentPasteWrapper } from './index.style';

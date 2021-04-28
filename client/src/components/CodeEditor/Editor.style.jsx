@@ -5,7 +5,7 @@ export const CodeEditorContainer = styled.section`
   background-color: ${p => (p.th === 'light' ? 'white' : '#1e1e1e')};
   padding: 20px 20px 70px 20px;
   border-radius: 8px;
-  box-shadow: 0 24px 24px -18px rgb(69 104 129 / 33%), 0 9px 45px 0 rgb(114 119 160 / 12%);
+  box-shadow: ${p => p.theme.shadows.large};
 `;
 
 export const CodeEditorWrapper = styled.div`
@@ -31,6 +31,9 @@ const themedSelect = css`
     }
     .ant-select-arrow {
       color: ${p => (p.th === 'light' ? 'rgba(0, 0, 0, 0.25)' : 'rgba(255, 255, 255, 0.25)')};
+    }
+    .ant-select-selection-item {
+      transition: all 0.3s, color 0ms;
     }
   }
 `;
