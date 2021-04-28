@@ -9,15 +9,17 @@ export const rTabs = str => str.trim().replace(/^ {4}/gm, '');
 
 export const upperFirst = str => `${str[0].toUpperCase()}${str.slice(1)}`;
 
-export const pasteURL = id =>
-  process.env.NODE_ENV === 'development'
-    ? `http://localhost:3000/${id}`
-    : `https://shareby.herokuapp.com/${id}`;
-
 export const SERVER_URL =
   process.env.NODE_ENV === 'development'
     ? `http://localhost:5000`
     : `https://shareby.herokuapp.com`;
+
+export const CLIENT_URL =
+  process.env.NODE_ENV === 'development'
+    ? `http://localhost:3000`
+    : `https://shareby.herokuapp.com`;
+
+export const pasteURL = id => `${CLIENT_URL}/${id}`;
 
 export const copyToClipboard = str => {
   let temp = document.createElement('textarea');

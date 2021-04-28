@@ -6,6 +6,7 @@ import Layout from 'layouts/Root';
 import EditorLayout from 'layouts/Editor';
 import RichTextSharingOptions from 'components/SharingOptions/TextSharing';
 import RichTextEditor from 'components/RichTextEditor';
+import SEO from 'components/SEO';
 
 const RichEditor = () => {
   const { state: routerState } = useLocation();
@@ -14,9 +15,9 @@ const RichEditor = () => {
   const addBlocks = (_, data) => {
     setBlocks(data.blocks);
   };
-  console.log(blocks);
   return (
     <Layout>
+      <SEO title="Rich Text Editor" />
       <BGWrapper>
         <EditorLayout
           left={<RichTextEditor blocks={blocks} addBlocks={addBlocks} />}

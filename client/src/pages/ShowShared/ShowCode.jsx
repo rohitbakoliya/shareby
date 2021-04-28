@@ -4,6 +4,7 @@ import SharedOptions from 'components/SharedOptions/CodeShared';
 import LangValContext from 'contexts/langValContext';
 import EditorLayout from 'layouts/Editor';
 import { useState } from 'react';
+import SEO from 'components/SEO';
 
 const ShowSharedPaste = ({ data }) => {
   const [language, setLanguage] = useState(languages.find(lang => lang.name === data.language));
@@ -25,6 +26,7 @@ const ShowSharedPaste = ({ data }) => {
 
   return (
     <>
+      <SEO title={data.title} slug={data.url} isShare={true} />
       <LangValContext.Provider value={{ language, handleLangChange, codes, handleCodeChange }}>
         <EditorLayout
           left={<CodeEditor defaultOptions={{ readOnly: true }} />}

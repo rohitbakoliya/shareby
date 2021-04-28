@@ -1,4 +1,5 @@
 import { message } from 'antd';
+import SEO from 'components/SEO';
 import Layout from 'layouts/Root';
 import { useEffect, useState } from 'react';
 import { http } from 'utils';
@@ -25,6 +26,7 @@ const RecentPastes = () => {
 
   return (
     <Layout>
+      <SEO title="Recent shares" />
       <RecentPasteWrapper>
         <PastesTable data={list} loading={loading} />
       </RecentPasteWrapper>

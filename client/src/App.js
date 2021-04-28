@@ -3,6 +3,7 @@ import MainRouter from 'routes/routes';
 import { Router } from 'react-router';
 import { history } from 'utils';
 import { ThemeProvider } from 'styled-components';
+import { HelmetProvider } from 'react-helmet-async';
 import GlobalStyles from 'styles/global.style';
 import theme from 'theme';
 import 'styles/App.less';
@@ -12,8 +13,10 @@ const App = () => {
     <React.Fragment>
       <ThemeProvider theme={theme}>
         <Router history={history}>
-          <GlobalStyles />
-          <MainRouter />
+          <HelmetProvider>
+            <GlobalStyles />
+            <MainRouter />
+          </HelmetProvider>
         </Router>
       </ThemeProvider>
     </React.Fragment>

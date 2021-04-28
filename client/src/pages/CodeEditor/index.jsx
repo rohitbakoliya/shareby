@@ -6,6 +6,7 @@ import CodeSharingOptions from 'components/SharingOptions/CodeSharing';
 import LangValContext from 'contexts/langValContext';
 import Layout from 'layouts/Root';
 import EditorLayout from 'layouts/Editor';
+import SEO from 'components/SEO';
 
 const IndexPage = () => {
   const { state: routerState } = useLocation();
@@ -59,6 +60,7 @@ const IndexPage = () => {
 
   return (
     <Layout>
+      <SEO title="Code Editor" />
       <LangValContext.Provider value={{ language, handleLangChange, codes, handleCodeChange }}>
         <EditorLayout left={<CodeEditor />} right={<CodeSharingOptions />} />
       </LangValContext.Provider>

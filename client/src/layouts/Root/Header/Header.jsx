@@ -11,7 +11,7 @@ const Header = () => {
         Rich Text Editor
       </NavLink>
       <NavLink to="/recent" activeClassName="active__tab">
-        Recent Pastes
+        Recent Shares
       </NavLink>
     </HeaderWrapper>
   );
