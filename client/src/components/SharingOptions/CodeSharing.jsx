@@ -4,7 +4,7 @@ import LangValContext from 'contexts/langValContext';
 import { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { http } from 'utils';
-import { CSOptionsWrapper } from './Options.styles';
+import SharingLayout from './SharingLayout';
 
 const CodeSharingOptions = () => {
   const history = useHistory();
@@ -39,10 +39,10 @@ const CodeSharingOptions = () => {
     }
   };
   return (
-    <CSOptionsWrapper>
+    <SharingLayout>
       <Typography.Title level={3}>Sharing Settings</Typography.Title>
       <SharingOptionsForm onFinish={onFinish} checked={checked} setChecked={setChecked} />
-    </CSOptionsWrapper>
+    </SharingLayout>
   );
 };
 

@@ -15,6 +15,7 @@ const EditorHeader = ({ activeTab, handleActiveTab }) => {
   const { language, codes, handleLangChange } = useContext(LangValContext);
   const {
     es: {
+      theme,
       options: { readOnly },
     },
   } = useContext(CodeEditorContext);
@@ -31,7 +32,7 @@ const EditorHeader = ({ activeTab, handleActiveTab }) => {
   };
 
   return (
-    <EditorHeaderWrapper>
+    <EditorHeaderWrapper th={theme}>
       <Row align="middle" justify="space-between">
         <Col>
           <Row justify="space-between" align="stretch">

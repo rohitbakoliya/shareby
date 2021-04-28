@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 const RichTextEditor = ({ blocks, addBlocks, readOnly }) => {
   return (
-    <RichEditorWrapper id="editorjs">
+    <RichEditorWrapper>
       <RichEditorInner>
         <EditorJs
           data={{

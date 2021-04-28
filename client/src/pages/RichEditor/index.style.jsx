@@ -1,11 +1,6 @@
 import styled from 'styled-components';
 
-export const BGWrapper = styled.main`
-  background: #eef5fa;
-  margin-top: -20px;
-  margin-bottom: -20px;
-  padding-top: 20px;
-  padding-bottom: 20px;
+export const BGWrapper = styled.section`
   .ant-row.main-content {
     height: inherit;
   }

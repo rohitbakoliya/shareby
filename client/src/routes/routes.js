@@ -1,5 +1,5 @@
 import NotFound from 'pages/404';
-import IndexPage from 'pages/IndexPage';
+import IndexPage from 'pages/CodeEditor';
 import RecentPastes from 'pages/RecentPastes';
 import RichEditor from 'pages/RichEditor';
 import ShowShared from 'pages/ShowShared';

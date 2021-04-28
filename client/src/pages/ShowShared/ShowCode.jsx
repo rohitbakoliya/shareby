@@ -1,9 +1,8 @@
-import { Row, Col } from 'antd';
 import CodeEditor from 'components/CodeEditor';
 import { languages } from 'components/CodeEditor/config';
 import SharedOptions from 'components/SharedOptions/CodeShared';
 import LangValContext from 'contexts/langValContext';
-import { IndexWrapper } from 'pages/IndexPage/index.style';
+import EditorLayout from 'layouts/Editor';
 import { useState } from 'react';
 
 const ShowSharedPaste = ({ data }) => {
@@ -13,8 +12,6 @@ const ShowSharedPaste = ({ data }) => {
   });
 
   const handleLangChange = langName => {
-    // console.log(langName);
-    // console.log(defaultCodes);
     const lang = languages.find(lang => lang.name === langName);
     setLanguage(lang);
   };
@@ -29,16 +26,10 @@ const ShowSharedPaste = ({ data }) => {
   return (
     <>
       <LangValContext.Provider value={{ language, handleLangChange, codes, handleCodeChange }}>
-        <IndexWrapper>
-          <Row wrap={false} className="main-content">
-            <Col flex="auto" className="main-content--col">
-              <CodeEditor defaultOptions={{ readOnly: true }} />
-            </Col>
-            <Col flex="400px" className="main-content--col">
-              <SharedOptions data={data} />
-            </Col>
-          </Row>
-        </IndexWrapper>
+        <EditorLayout
+          left={<CodeEditor defaultOptions={{ readOnly: true }} />}
+          right={<SharedOptions data={data} />}
+        />
       </LangValContext.Provider>
     </>
   );

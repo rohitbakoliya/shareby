@@ -1,12 +1,11 @@
 import { useState } from 'react';
-import { Row, Col } from 'antd';
+import { useLocation } from 'react-router-dom';
 import CodeEditor from 'components/CodeEditor';
 import { languages, examples } from 'components/CodeEditor/config';
 import CodeSharingOptions from 'components/SharingOptions/CodeSharing';
 import LangValContext from 'contexts/langValContext';
-import Layout from 'layout';
-import { IndexWrapper } from './index.style';
-import { useLocation } from 'react-router-dom';
+import Layout from 'layouts/Root';
+import EditorLayout from 'layouts/Editor';
 
 const IndexPage = () => {
   const { state: routerState } = useLocation();
@@ -61,16 +60,7 @@ const IndexPage = () => {
   return (
     <Layout>
       <LangValContext.Provider value={{ language, handleLangChange, codes, handleCodeChange }}>
-        <IndexWrapper>
-          <Row wrap={false} className="main-content">
-            <Col flex="auto" className="main-content--col">
-              <CodeEditor />
-            </Col>
-            <Col flex="400px" className="main-content--col">
-              <CodeSharingOptions />
-            </Col>
-          </Row>
-        </IndexWrapper>
+        <EditorLayout left={<CodeEditor />} right={<CodeSharingOptions />} />
       </LangValContext.Provider>
     </Layout>
   );

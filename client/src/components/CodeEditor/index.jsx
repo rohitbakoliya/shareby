@@ -1,6 +1,7 @@
 import CodeEditorContext from 'contexts/codeEditorContext';
 import React, { useState } from 'react';
 import Editor from './Editor';
+import { CodeEditorContainer } from './Editor.style';
 import EditorHeader from './EditorHeader';
 
 const initOptions = {
@@ -29,6 +30,7 @@ const CodeEditor = ({ defaultOptions }) => {
     setEs(_es => ({
       ..._es,
       options: {
+        ...es.options,
         ...options,
       },
     }));
@@ -40,14 +42,13 @@ const CodeEditor = ({ defaultOptions }) => {
       theme: _es.theme === 'light' ? 'vs-dark' : 'light',
     }));
   };
-
   return (
-    <>
-      <CodeEditorContext.Provider value={{ es, updateOptions, toggleTheme }}>
+    <CodeEditorContext.Provider value={{ es, updateOptions, toggleTheme }}>
+      <CodeEditorContainer th={es.theme}>
         <EditorHeader activeTab={activeTab} handleActiveTab={handleActiveTab} />
         <Editor activeTab={activeTab} />
-      </CodeEditorContext.Provider>
-    </>
+      </CodeEditorContainer>
+    </CodeEditorContext.Provider>
   );
 };
 export default CodeEditor;

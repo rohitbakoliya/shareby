@@ -3,7 +3,7 @@ import SharingOptionsForm from 'components/Forms/SharingOptionsForm';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { http } from 'utils';
-import { CSOptionsWrapper } from './Options.styles';
+import SharingLayout from './SharingLayout';
 
 const RichTextSharingOptions = ({ blocks }) => {
   const history = useHistory();
@@ -38,10 +38,10 @@ const RichTextSharingOptions = ({ blocks }) => {
     }
   };
   return (
-    <CSOptionsWrapper>
+    <SharingLayout>
       <Typography.Title level={3}>Sharing Settings</Typography.Title>
       <SharingOptionsForm onFinish={onFinish} checked={checked} setChecked={setChecked} />
-    </CSOptionsWrapper>
+    </SharingLayout>
   );
 };
 

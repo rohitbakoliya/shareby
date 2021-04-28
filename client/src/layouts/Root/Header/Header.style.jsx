@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const HeaderWrapper = styled.header`
   width: 100%;
   min-height: 60px;
-  margin-bottom: 20px;
   background-color: ${p => p.theme.colors.primary};
   display: flex;
   justify-content: center;
@@ -20,6 +19,7 @@ export const HeaderWrapper = styled.header`
     padding: 0 10px;
   }
   .active__tab {
-    color: #40a9ff;
+    color: ${p => p.theme.colors.secondary};
+    transform: scale(1.03);
   }
 `;

@@ -57,7 +57,6 @@ const CodeShared = ({ data }) => {
 
   return (
     <SharedOptionsWrapper>
-      <Typography.Title level={3}>Paste Details</Typography.Title>
       <div className="options--content">
         <Card
           bordered={false}
