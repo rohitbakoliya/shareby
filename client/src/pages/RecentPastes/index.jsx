@@ -1,5 +1,5 @@
 import { message } from 'antd';
-import Layout from 'layout/Root';
+import Layout from 'layouts/Root';
 import { useEffect, useState } from 'react';
 import { http } from 'utils';
 import { RecentPasteWrapper } from './index.style';
@@ -8,6 +8,7 @@ import PastesTable from './PasteTable';
 const RecentPastes = () => {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const fetchRecent = async () => {
       try {
@@ -21,6 +22,7 @@ const RecentPastes = () => {
     };
     fetchRecent();
   }, []);
+
   return (
     <Layout>
       <RecentPasteWrapper>

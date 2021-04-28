@@ -30,6 +30,7 @@ const CodeEditor = ({ defaultOptions }) => {
     setEs(_es => ({
       ..._es,
       options: {
+        ...es.options,
         ...options,
       },
     }));

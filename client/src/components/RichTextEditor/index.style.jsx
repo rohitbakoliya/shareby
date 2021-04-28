@@ -1,5 +1,12 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Scrollbar from 'styles/scrollbar.style';
+
+const editorStyling = css`
+  font-size: 15px;
+  h1 {
+    font-size: 2em;
+  }
+`;
 
 export const RichEditorWrapper = styled.div`
   height: calc(100vh - 100px);
@@ -8,6 +15,7 @@ export const RichEditorWrapper = styled.div`
   border-radius: 8px;
   overflow-y: auto;
   ${Scrollbar};
+  ${editorStyling};
 `;
 
 export const RichEditorInner = styled.div`

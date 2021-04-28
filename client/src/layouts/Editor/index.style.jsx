@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const IndexWrapper = styled.section`
+export const EditorWrapper = styled.section`
   height: calc(100vh - 100px);
   position: relative;
   padding-left: 20px;
@@ -18,6 +18,7 @@ export const RightContent = styled.div`
   width: 450px;
   padding-left: 50px;
   height: 50%;
+  min-height: 300px;
   top: 50%;
   transform: translateY(-50%);
   right: 20px;

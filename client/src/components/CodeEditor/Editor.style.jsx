@@ -45,7 +45,7 @@ export const EditorHeaderWrapper = styled.div`
           color: rgba(0, 0, 0, 0.85);
         `
       : css`
-          color: rgba(255, 255, 255, 0.85);
+          color: rgba(255, 255, 255, 0.95);
         `};
   height: 30px;
   width: 100%;

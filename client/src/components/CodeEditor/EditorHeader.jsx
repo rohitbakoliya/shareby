@@ -19,6 +19,7 @@ const EditorHeader = ({ activeTab, handleActiveTab }) => {
       options: { readOnly },
     },
   } = useContext(CodeEditorContext);
+
   const handleFullScreen = () => {
     const element = document.getElementById('code--container');
     if (element && document.fullscreenEnabled) {

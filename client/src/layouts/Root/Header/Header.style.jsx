@@ -20,5 +20,6 @@ export const HeaderWrapper = styled.header`
   }
   .active__tab {
     color: ${p => p.theme.colors.secondary};
+    transform: scale(1.03);
   }
 `;

@@ -1,8 +1,8 @@
-import { Col, Row } from 'antd';
+import { useState } from 'react';
+import EditorLayout from 'layouts/Editor';
 import RichTextEditor from 'components/RichTextEditor';
 import RichTextSharedOptions from 'components/SharedOptions/TextShared';
 import { BGWrapper } from 'pages/RichEditor/index.style';
-import { useState } from 'react';
 
 const ShowText = ({ data }) => {
   const [blocks, setBlocks] = useState(JSON.parse(data.body));
@@ -11,14 +11,10 @@ const ShowText = ({ data }) => {
   };
   return (
     <BGWrapper>
-      <Row wrap={false} className="main-content">
-        <Col flex="1" className="main-content--col">
-          <RichTextEditor readOnly blocks={blocks} addBlocks={addBlocks} />
-        </Col>
-        <Col flex="400px" className="main-content--col">
-          <RichTextSharedOptions data={data} />
-        </Col>
-      </Row>
+      <EditorLayout
+        left={<RichTextEditor readOnly blocks={blocks} addBlocks={addBlocks} />}
+        right={<RichTextSharedOptions data={data} />}
+      />
     </BGWrapper>
   );
 };

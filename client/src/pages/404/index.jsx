@@ -1,4 +1,4 @@
-import Layout from 'layout/Root';
+import Layout from 'layouts/Root';
 import ErrorHandler from 'components/ErrorHandler';
 
 const NotFound = () => {
