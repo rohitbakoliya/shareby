@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const IndexWrapper = styled.section`
-  height: calc(100vh - 150px);
+  height: calc(100vh - 100px);
   .ant-row.main-content {
     height: inherit;
   }

@@ -1,5 +1,6 @@
 const colors = {
-  primary: '#5e17eb',
+  primary: '#7546c9',
+  accent: '#efe9ff',
 };
 
 const shadows = {
