@@ -1,7 +1,12 @@
 const colors = {
   primary: '#7546c9',
-  secondary: '#e3b4ff',
+  secondary: '#ecbdff',
+  light: '#9a9bcc',
   accent: '#efe9ff',
+  gradient: `-webkit-gradient(linear, left bottom, left top,
+    color-stop(0.44, rgb(152, 164, 210)),
+    color-stop(0.72, rgb(154, 155, 204)),
+    color-stop(0.86, rgb(112, 121, 179)))`,
 };
 
 const shadows = {

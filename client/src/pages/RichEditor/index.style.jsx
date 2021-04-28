@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const BGWrapper = styled.main`
+export const BGWrapper = styled.section`
   .ant-row.main-content {
     height: inherit;
   }

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Scrollbar from 'styles/scrollbar.style';
 
 export const RichEditorWrapper = styled.div`
   height: calc(100vh - 100px);
@@ -6,10 +7,11 @@ export const RichEditorWrapper = styled.div`
   background-color: white;
   border-radius: 8px;
   overflow-y: auto;
+  ${Scrollbar};
 `;
 
 export const RichEditorInner = styled.div`
-  padding: 50px 30px;
+  margin: 50px 30px;
   .codex-editor__redactor {
     padding-bottom: 50px !important;
   }
