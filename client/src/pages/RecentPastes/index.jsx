@@ -27,7 +27,7 @@ const RecentPastes = () => {
   return (
     <Layout>
       <SEO title="Recent shares" />
-      <RecentPasteWrapper>
+      <RecentPasteWrapper isEmpty={!loading && list.length === 0}>
         <PastesTable data={list} loading={loading} />
       </RecentPasteWrapper>
     </Layout>

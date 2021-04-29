@@ -30,8 +30,8 @@ const RichTextSharingOptions = ({ blocks }) => {
     paste.type = 'text';
     try {
       const { data } = await http.post('/api/pastes', paste);
-      message.success({ content: 'New Paste created 🎉', key, duration: 4 });
-      console.log(data);
+      message.success({ content: 'New share created 🎉', key, duration: 3 });
+      // console.log(data);
       history.push(`/${data.url}`);
     } catch (err) {
       message.error({ content: err.data.error, key, duration: 3 });

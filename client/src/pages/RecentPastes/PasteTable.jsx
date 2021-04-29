@@ -37,7 +37,7 @@ const PastesTable = ({ data, loading }) => (
   <Table
     loading={loading}
     rowKey={row => row._id}
-    pagination={{ position: ['topRight'], hideOnSinglePage: true }}
+    pagination={{ position: ['topRight'] }}
     dataSource={data}
     columns={columns}
   />
