@@ -62,7 +62,12 @@ export const EditorHeaderWrapper = styled.div`
       color: ${p => p.theme.colors.primary};
     }
   }
-
+  .run__btn {
+    margin: 0 20px;
+    span {
+      margin: 0;
+    }
+  }
   .tab--col-md {
     cursor: pointer;
     display: flex;

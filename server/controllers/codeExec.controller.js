@@ -1,5 +1,5 @@
 import httpStatus from 'http-status-codes';
-import { hckHttp } from '../utils/httpInstance';
+import { hckHttp, http } from '../utils/httpInstance';
 import { validateSubmissionBody } from '../validators/codeExec.validator';
 
 /**
@@ -30,8 +30,18 @@ export const codeSubmission = async (req, res) => {
 export const getSubmissionStatus = async (req, res) => {
   const id = req.params.id;
   try {
-    const { data } = await hckHttp(`/${id}`);
-    return res.status(httpStatus.OK).json({ data });
+    const {
+      data: { result },
+    } = await hckHttp(`/${id}`);
+    if (result.compile_status === 'OK') {
+      const { data } = await http.get(result.run_status.output);
+      result.output = data;
+      delete result.run_status;
+      return res.status(httpStatus.OK).json({ data: result });
+    } else {
+      delete result.run_status;
+      return res.status(httpStatus.OK).json({ data: result });
+    }
   } catch (err) {
     return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ error: `something went wrong` });
   }

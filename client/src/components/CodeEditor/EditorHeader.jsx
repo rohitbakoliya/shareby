@@ -1,14 +1,16 @@
-import { Select, Col, Row, Tooltip, Divider } from 'antd';
+import { Select, Col, Row, Tooltip, Divider, Button } from 'antd';
 import { FullscreenOutlined, ForkOutlined } from '@ant-design/icons';
-import { languages } from './config';
+import { execLanguagesMapper, languages } from './config';
 import Settings from './settings/Settings';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import LangValContext from 'contexts/langValContext';
 import CodeEditorContext from 'contexts/codeEditorContext';
 import { useHistory } from 'react-router-dom';
-import { noop } from 'utils';
+import { http, noop } from 'utils';
 import { EyeIcon, EditCodeIcon } from 'components/CustomIcons';
 import { EditorHeaderWrapper } from './Editor.style';
+import RunModal from './execute/RunModal';
+import OutputModal from './execute/OutputModal';
 
 const EditorHeader = ({ activeTab, handleActiveTab }) => {
   const history = useHistory();
@@ -31,6 +33,37 @@ const EditorHeader = ({ activeTab, handleActiveTab }) => {
     history.push('/', { language, code: codes[language.id] });
   };
 
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalVisibleO, setIsModalVisibleO] = useState(false);
+  const [confirmLoading, setConfirmLoading] = useState(false);
+  const [output, setOutput] = useState({});
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = async form => {
+    setConfirmLoading(true);
+    const body = form.getFieldsValue();
+    body.source = codes[language.id];
+    body.lang = execLanguagesMapper[language.name];
+    try {
+      const { data } = await http.post('/api/submissions/', body);
+      setTimeout(async () => {
+        const { data: subdata } = await http.get(`/api/submissions/${data.he_id}`);
+        console.log(subdata);
+        setOutput(subdata);
+        setConfirmLoading(false);
+        setIsModalVisibleO(true);
+      }, 3500);
+    } catch (err) {
+      console.log(err);
+      setConfirmLoading(false);
+    }
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
   return (
     <EditorHeaderWrapper th={theme}>
       <Row align="middle" justify="space-between">
@@ -51,6 +84,26 @@ const EditorHeader = ({ activeTab, handleActiveTab }) => {
                 ))}
               </Select>
             </Col>
+            {/* // TODO: */}
+            {execLanguagesMapper[language.name] && (
+              <Col className="run__btn">
+                <Button type="primary" onClick={showModal}>
+                  Run
+                </Button>
+                <RunModal
+                  handleOk={handleOk}
+                  handleCancel={handleCancel}
+                  isModalVisible={isModalVisible}
+                  confirmLoading={confirmLoading}
+                />
+                <OutputModal
+                  handleOk={() => setIsModalVisibleO(false)}
+                  handleCancel={() => setIsModalVisibleO(false)}
+                  isModalVisibleO={isModalVisibleO}
+                  output={output}
+                />
+              </Col>
+            )}
             {language.name === 'markdown' && (
               <>
                 <Col
