@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import Scrollbar from 'styles/scrollbar.style';
 
 export const CodeEditorContainer = styled.section`
   height: 100%;
@@ -16,6 +17,7 @@ export const CodeEditorWrapper = styled.div`
           background: white;
           overflow-y: auto;
           border-radius: 8px;
+          ${Scrollbar};
         `
       : css``}
 `;

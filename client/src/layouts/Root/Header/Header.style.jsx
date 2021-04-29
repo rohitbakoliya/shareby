@@ -5,7 +5,8 @@ export const HeaderWrapper = styled.header`
   min-height: 60px;
   background-color: ${p => p.theme.colors.primary};
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  padding: 0 40px;
   align-items: center;
   color: white;
 
