@@ -1,7 +1,7 @@
-import { message } from 'antd';
 import SEO from 'components/SEO';
 import Layout from 'layouts/Root';
 import { useEffect, useState } from 'react';
+import { useErrorHandler } from 'react-error-boundary';
 import { http } from 'utils';
 import { RecentPasteWrapper } from './index.style';
 import PastesTable from './PasteTable';
@@ -9,20 +9,21 @@ import PastesTable from './PasteTable';
 const RecentPastes = () => {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
+  const handleError = useErrorHandler();
 
   useEffect(() => {
     const fetchRecent = async () => {
       try {
         const { data } = await http.get(`/api/pastes/recents`);
         setList(data);
-      } catch (err) {
-        message.error({ content: err.data.error, duration: 3 });
-      } finally {
         setLoading(false);
+      } catch (err) {
+        setLoading(false);
+        handleError(err);
       }
     };
     fetchRecent();
-  }, []);
+  }, [handleError]);
 
   return (
     <Layout>

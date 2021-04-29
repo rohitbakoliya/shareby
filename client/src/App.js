@@ -7,6 +7,8 @@ import { HelmetProvider } from 'react-helmet-async';
 import GlobalStyles from 'styles/global.style';
 import theme from 'theme';
 import 'styles/App.less';
+import { ErrorBoundary } from 'react-error-boundary';
+import ErrorFallback from 'components/ErrorFallback';
 
 const App = () => {
   return (
@@ -14,8 +16,10 @@ const App = () => {
       <ThemeProvider theme={theme}>
         <Router history={history}>
           <HelmetProvider>
-            <GlobalStyles />
-            <MainRouter />
+            <ErrorBoundary FallbackComponent={ErrorFallback}>
+              <GlobalStyles />
+              <MainRouter />
+            </ErrorBoundary>
           </HelmetProvider>
         </Router>
       </ThemeProvider>

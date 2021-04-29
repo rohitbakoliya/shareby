@@ -2,33 +2,44 @@ import { Result, Button } from 'antd';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const ErrorHandler = ({ status, statusText, error }) => {
+const ErrorHandler = ({ status, statusText, data }) => {
+  const errorMsg = `Oops! Something went wrong, please check your internet connection`;
   const hisory = useHistory();
   const goBack = () => {
     hisory.replace('/');
   };
+  const HomeBtn = (
+    <Button type="primary" className="home__btn" onClick={goBack} key="home">
+      Return Home
+    </Button>
+  );
   return (
     <Result
       status={status}
       title={statusText || status}
-      subTitle={error}
+      subTitle={data.error || errorMsg}
       extra={
-        <Button type="link" danger onClick={goBack}>
-          Return Home
-        </Button>
+        data.issueLink
+          ? [
+              HomeBtn,
+              <Button type="primary" target="__blank" href={data.issueLink} key="issue">
+                Raise an Issue
+              </Button>,
+            ]
+          : HomeBtn
       }
     />
   );
 };
 ErrorHandler.defaultProps = {
-  status: 500,
+  status: 'error',
   statusText: 'INTERNAL SERVER ERROR',
-  error: `Oops! Something went wrong`,
+  data: `Oops! Something went wrong, please check your internet connection`,
 };
 ErrorHandler.propTypes = {
-  status: PropTypes.number.isRequired,
+  status: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   statusText: PropTypes.string,
-  error: PropTypes.string.isRequired,
+  data: PropTypes.any.isRequired,
 };
 
 export default ErrorHandler;

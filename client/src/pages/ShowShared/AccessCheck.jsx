@@ -5,14 +5,15 @@ import { http } from 'utils';
 import ShowCode from './ShowCode';
 import ShowText from './ShowText';
 import ShowProtected from './ShowProtected';
-import ErrorHandler from 'components/ErrorHandler';
+import { useErrorHandler } from 'react-error-boundary';
 
 const AccessCheck = () => {
   const { url } = useParams();
   const [access, setAccess] = useState();
   const [pasteData, setPasteData] = useState();
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState();
+  const errorHandler = useErrorHandler();
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -28,15 +29,11 @@ const AccessCheck = () => {
           setIsLoading(false);
         }
       } catch (err) {
-        setError({
-          status: err.status,
-          statusText: err.statusText,
-          error: err.data.error,
-        });
-        setIsLoading(false);
+        errorHandler(err);
       }
     };
     !access && fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [access, url]);
 
   if (isLoading) {
@@ -45,10 +42,6 @@ const AccessCheck = () => {
         <Spin tip={'Finding paste...'} size="large" />
       </Row>
     );
-  }
-  // check for errors
-  if (error) {
-    return <ErrorHandler {...error} />;
   }
 
   if (access === 'private') return <>Private Paste </>;

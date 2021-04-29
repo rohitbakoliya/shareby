@@ -49,8 +49,7 @@ const CodeShared = ({ data }) => {
       FileSaver.saveAs(new Blob([imageBuffer]), `${data.url}.png`);
       setLoading(false);
     } catch (err) {
-      console.log(err);
-      message.error(`something went wrong while download image, please try again later`);
+      message.error(`something went wrong while download image, please try again`);
       setLoading(false);
     }
   };
