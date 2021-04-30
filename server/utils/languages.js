@@ -57,23 +57,3 @@ export const languages = [
   'xml',
   'yaml',
 ];
-
-export const langMapper = {
-  c: 'C',
-  cpp: 'CPP14',
-  clojure: 'CLOJURE',
-  csharp: 'CSHARP',
-  go: 'GO',
-  java: 'JAVA8',
-  javascript: 'JAVASCRIPT_NODE',
-  kotlin: 'KOTLIN',
-  'objective-c': 'OBJECTIVEC',
-  pascal: 'PASCAL',
-  perl: 'PERL',
-  php: 'PHP',
-  python: 'PYTHON3',
-  r: 'R',
-  ruby: 'RUBY',
-  rust: 'RUST',
-  swift: 'SWIFT',
-};

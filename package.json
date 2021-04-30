@@ -6,10 +6,10 @@
   "scripts": {
     "start": "node -r dotenv/config dist/index.js",
     "start:server": "babel-node -r dotenv/config server/index.js",
-    "watch:client": "cd client && npm run start",
+    "watch:client": "cd client && yarn start",
     "watch:server": "nodemon --exec babel-node -r dotenv/config server/index.js",
-    "dev": "concurrently \"npm run watch:server\" \"npm run watch:client\"",
-    "prod": "npm run build:client && cross-env NODE_ENV=production npm run watch:server",
+    "dev": "concurrently \"yarn watch:server\" \"yarn watch:client\"",
+    "prod": "yarn build:client && cross-env NODE_ENV=production yarn watch:server",
     "build:client": "cd client && yarn build",
     "build:server": "babel server --out-dir dist",
     "build": "yarn build:client && yarn build:server",
@@ -20,7 +20,7 @@
     "lint:fix": "eslint \"**/*.{js,jsx}\" --fix",
     "format": "prettier \"**/*.{js,jsx,css}\" --write",
     "format:staged": "pretty-quick --staged",
-    "lf": "npm run lint && npm run format"
+    "lf": "yarn lint && yarn format"
   },
   "author": "Rohit Bakoliya",
   "license": "MIT",
@@ -31,7 +31,7 @@
   },
   "lint-staged": {
     "(server|client)/**/*.{js,jsx}": [
-      "npm run format:staged",
+      "yarn format:staged",
       "eslint --cache --fix"
     ]
   },
