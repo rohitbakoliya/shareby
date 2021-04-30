@@ -13,11 +13,11 @@
 ## Quick Start
 
 ```sh
-$ git clone https://github.com/rohitbakoliya/shareby.git
-$ cd shareby
-$ yarn install
-$ cd client & yarn install
-$ yarn dev
+git clone https://github.com/rohitbakoliya/shareby.git
+cd shareby
+yarn install
+cd client & yarn install
+yarn dev
 ```
 
 **NOTE:** Dont' forget to create `.env` by copying the content of `.env.example` and updating with
@@ -50,6 +50,6 @@ valid keys
   link
 - You can also protect code/text sharing by password
 
-  ## Author
+## Author
 
-  - Rohit Bakoliya - [rohitbakoliya](https://github.com/rohitbakoliya)
+- Rohit Bakoliya - [rohitbakoliya](https://github.com/rohitbakoliya)
