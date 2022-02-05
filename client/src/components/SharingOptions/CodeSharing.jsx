@@ -11,10 +11,10 @@ const CodeSharingOptions = () => {
   const [checked, setChecked] = useState(false);
   const { codes, language } = useContext(LangValContext);
 
-  // to create new paste
+  // to create new share
   const onFinish = async values => {
     const key = 'pasteCreator';
-    message.loading({ content: 'Creating paste...', key });
+    message.loading({ content: 'Creating share...', key });
     const { expireAfterSeconds } = values;
     let paste = { ...values };
     delete paste.expireAfterSeconds;

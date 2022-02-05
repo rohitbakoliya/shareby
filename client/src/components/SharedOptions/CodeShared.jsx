@@ -1,4 +1,4 @@
-import { Typography, Card, Row, Col, Tooltip, message } from 'antd';
+import { Typography, notification, Card, Row, Col, Tooltip, message } from 'antd';
 import {
   CalendarOutlined,
   ClockCircleOutlined,
@@ -9,18 +9,29 @@ import {
   CheckOutlined,
   FileImageOutlined,
   LoadingOutlined,
+  LinkOutlined,
 } from '@ant-design/icons';
 import TimeAgo from 'react-timeago';
 import FileSaver from 'file-saver';
 import qs from 'qs';
-import { copyToClipboard, http, pasteURL, SERVER_URL, upperFirst } from 'utils';
+import { copyToClipboard, http, shareURL, SERVER_URL, upperFirst } from 'utils';
 import { useState } from 'react';
-import { carbonDefaultParams } from 'utils/carbonDefaults';
+import { carbonDefaultParams } from 'config/carbonDefaults';
 import { SharedOptionsWrapper } from './Options.style';
+
+const openNotification = () => {
+  notification.info({
+    message: `Note`,
+    description: `Generating an image sometimes takes time, or even requests might fail. 
+      Usually, Heroku takes 3-5 seconds to load the CPU-intensive idle apps from a cold boot.`,
+    duration: 9,
+  });
+};
 
 const CodeShared = ({ data }) => {
   const [copied, setCopied] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [notified, setNotified] = useState(false);
 
   const handleCopyCode = () => {
     if (copied) return;
@@ -38,6 +49,10 @@ const CodeShared = ({ data }) => {
 
   const createCarbonImage = async () => {
     setLoading(true);
+
+    if (!notified) openNotification();
+    setNotified(true);
+
     try {
       const resp = await http.post(
         `https://carbon-ss.herokuapp.com/api/carbon-ss?${qs.stringify(carbonDefaultParams)}`,
@@ -92,8 +107,9 @@ const CodeShared = ({ data }) => {
             title={
               <Typography.Text
                 copyable={{
-                  text: pasteURL(data.url),
-                  tooltips: ['Copy paste URL to clipboard', 'Copied!'],
+                  text: shareURL(data.url),
+                  tooltips: ['Copy share URL to clipboard', 'Copied!'],
+                  icon: <LinkOutlined />,
                 }}
               >
                 {data.title}

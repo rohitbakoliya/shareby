@@ -1,5 +1,6 @@
 import { Button, Card, Form, Input, Typography } from 'antd';
-import { pasteURL } from 'utils';
+import { LinkOutlined } from '@ant-design/icons';
+import { shareURL } from 'utils';
 import PropTypes from 'prop-types';
 
 const UnlockPasteForm = ({ isLoading, url, onFinish }) => (
@@ -8,11 +9,12 @@ const UnlockPasteForm = ({ isLoading, url, onFinish }) => (
       <Typography.Title
         level={4}
         copyable={{
-          text: pasteURL(url),
-          tooltips: ['Copy paste URL to clipboard', 'Copied!'],
+          text: shareURL(url),
+          tooltips: ['Copy share URL to clipboard', 'Copied!'],
+          icon: <LinkOutlined />,
         }}
       >
-        Locked Paste
+        Locked Share
       </Typography.Title>
     }
   >
@@ -28,7 +30,7 @@ const UnlockPasteForm = ({ isLoading, url, onFinish }) => (
       <br />
       <Form.Item style={{ textAlign: 'center' }}>
         <Button loading={isLoading} type="primary" htmlType="submit">
-          Unlock Paste
+          Unlock Share
         </Button>
       </Form.Item>
     </Form>

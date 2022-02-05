@@ -1,17 +1,17 @@
 import { Button, Form, Input, Select } from 'antd';
 import Checkbox from 'antd/lib/checkbox/Checkbox';
-import { expirationList } from '../SharingOptions/config';
+import { expirationList } from 'config/expirationList';
 import PropTypes from 'prop-types';
 
 const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 16 },
+  labelCol: { span: 7 },
+  wrapperCol: { span: 15 },
 };
 const tailLayout = {
-  wrapperCol: { offset: 8, span: 16 },
+  wrapperCol: { offset: 7, span: 15 },
 };
 const centerLayout = {
-  wrapperCol: { offset: 6, span: 18 },
+  wrapperCol: { offset: 7, span: 17 },
 };
 
 const SharingOptionsForm = ({ onFinish, checked, setChecked }) => {
@@ -58,7 +58,7 @@ const SharingOptionsForm = ({ onFinish, checked, setChecked }) => {
       </Form.Item>
       <Form.Item {...centerLayout}>
         <Button type="primary" htmlType="submit">
-          Create New Paste
+          Create New Share
         </Button>
       </Form.Item>
     </Form>
