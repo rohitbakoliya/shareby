@@ -6,7 +6,7 @@ const Header = () => {
   return (
     <HeaderWrapper>
       <div>
-        <img src={Logo} alt="app logo" height="60px" />
+        <img src={Logo} alt="app logo" height="45px" />
       </div>
       <div>
         <NavLink to="/" exact activeClassName="active__tab">

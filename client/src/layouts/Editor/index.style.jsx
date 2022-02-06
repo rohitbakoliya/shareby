@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const EditorWrapper = styled.section`
-  height: calc(100vh - 100px);
+  height: calc(100vh - 90px);
   position: relative;
   padding-left: 20px;
   padding-right: 20px;
@@ -10,12 +10,12 @@ export const EditorWrapper = styled.section`
 
 export const LeftContent = styled.div`
   position: absolute;
-  width: calc(100% - 450px);
+  width: calc(100% - 430px);
   height: 100%;
 `;
 export const RightContent = styled.div`
   position: absolute;
-  width: 450px;
+  width: 430px;
   padding-left: 50px;
   height: 50%;
   min-height: 300px;

@@ -5,9 +5,10 @@ import {
   FileMarkdownOutlined,
   ForkOutlined,
   LockOutlined,
+  LinkOutlined,
 } from '@ant-design/icons';
 import { Card, Col, Row, Tooltip, Typography } from 'antd';
-import { htmlParser, mdParser, pasteURL, upperFirst } from 'utils';
+import { htmlParser, mdParser, shareURL, upperFirst } from 'utils';
 import { SharedOptionsWrapper } from './Options.style';
 import TimeAgo from 'react-timeago';
 import FileSaver from 'file-saver';
@@ -68,8 +69,9 @@ const TextShared = ({ data }) => {
             title={
               <Typography.Text
                 copyable={{
-                  text: pasteURL(data.url),
-                  tooltips: ['Copy paste URL to clipboard', 'Copied!'],
+                  text: shareURL(data.url),
+                  tooltips: ['Copy share URL to clipboard', 'Copied!'],
+                  icon: <LinkOutlined />,
                 }}
               >
                 {data.title}

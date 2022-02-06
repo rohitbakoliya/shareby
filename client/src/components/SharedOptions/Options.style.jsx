@@ -23,7 +23,7 @@ export const SharedOptionsWrapper = styled.div`
     color: rgba(0, 0, 0, 0.85);
     transition: color 0.3s;
     &:hover {
-      color: #1890ff;
+      color: #7546c9;
     }
   }
 `;

@@ -19,7 +19,7 @@ export const CLIENT_URL =
     ? `http://localhost:3000`
     : `https://shareby.herokuapp.com`;
 
-export const pasteURL = id => `${CLIENT_URL}/${id}`;
+export const shareURL = id => `${CLIENT_URL}/${id}`;
 
 export const copyToClipboard = str => {
   let temp = document.createElement('textarea');

@@ -29,7 +29,7 @@ const columns = [
   {
     title: 'Action',
     dataIndex: 'url',
-    render: url => <Link to={`/${url}`}>view paste</Link>,
+    render: url => <Link to={`/${url}`}>view share</Link>,
   },
 ];
 
@@ -37,7 +37,7 @@ const PastesTable = ({ data, loading }) => (
   <Table
     loading={loading}
     rowKey={row => row._id}
-    pagination={{ position: ['topRight'] }}
+    pagination={{ position: ['topRight'], showSizeChanger: false }}
     dataSource={data}
     columns={columns}
   />

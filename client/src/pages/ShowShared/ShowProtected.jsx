@@ -27,7 +27,7 @@ const ShowProtected = ({ url }) => {
 
   /**
    * paste data is stored in history state 😁
-   * so no need to enter password again after every refresh
+   * so no need to enter password even after every refresh
    */
   useEffect(() => {
     if (routerState) {
