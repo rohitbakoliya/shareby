@@ -1,8 +1,8 @@
 import httpStatus from 'http-status-codes';
-import { customAlphabet } from 'nanoid';
-import { alphanumeric } from '../utils';
+import { getUID } from '../services';
 import { validatePaste, validateUrl, validatePassword } from '../validators/paste.validator';
 import Paste from '../models/Paste';
+import { setCacheControlHeader } from '../middlewares/setCacheControlHeader';
 
 /**
  * @desc    to get all pastes
@@ -28,9 +28,15 @@ export const getAllPastes = async (req, res) => {
 export const getRecentPublicPastes = async (req, res) => {
   const MX_PASTES = 100;
   try {
-    const pastes = await Paste.find({ access: 'public' }).sort({ createdAt: 1 }).limit(MX_PASTES);
-    return res.status(httpStatus.OK).json({ data: pastes.slice(0, MX_PASTES) });
+    const pastes = await Paste.find({ access: 'public' })
+      .select('-body -_id')
+      .sort({ createdAt: -1 })
+      .limit(MX_PASTES);
+    pastes.sort((a, b) => new Date(a.createdAt).getTime() > new Date(b.createdAt).getTime());
+
+    return res.status(httpStatus.OK).json({ data: pastes });
   } catch (err) {
+    console.log(err);
     return res
       .status(httpStatus.INTERNAL_SERVER_ERROR)
       .json({ error: `something went wrong while getting recent public pastes` });
@@ -59,7 +65,7 @@ export const createPaste = async (req, res) => {
         .json({ error: 'Password is required for creating a protected paste' });
     }
 
-    const url = customAlphabet(alphanumeric, 8)();
+    const url = getUID();
     const paste = new Paste({
       ...value,
       url,
@@ -90,10 +96,13 @@ export const checkAccess = async (req, res) => {
         .status(httpStatus.NOT_FOUND)
         .json({ error: `The paste you are looking for is not found!` });
     }
+
     const data = {
       // _id: paste._id,
       access: paste.access,
     };
+
+    res.set('Cache-control', setCacheControlHeader(paste.expireAt));
     return res.status(httpStatus.OK).json({ data });
   } catch (err) {
     return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ error: `something went wrong` });
@@ -122,6 +131,9 @@ export const getPasteByUrl = async (req, res) => {
         .status(httpStatus.FORBIDDEN)
         .json({ error: `Access to this paste is not allowed` });
     }
+
+    res.set('Cache-control', setCacheControlHeader(paste.expireAt));
+
     return res.status(httpStatus.OK).json({ data: paste });
   } catch (err) {
     return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ error: `something went wrong` });
@@ -192,6 +204,9 @@ export const rawPaste = async (req, res) => {
         .status(httpStatus.FORBIDDEN)
         .json({ error: `Access to this paste is not allowed` });
     }
+
+    res.set('Cache-control', setCacheControlHeader(paste.expireAt));
+
     return res.set('content-type', 'text/plain').send(paste.body);
   } catch (err) {
     return res.status(httpStatus.INTERNAL_SERVER_ERROR).send(`something went wrong`);

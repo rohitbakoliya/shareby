@@ -22,8 +22,8 @@ const columns = [
   {
     title: 'Created',
     dataIndex: 'createdAt',
-    defaultSortOrder: 'descend',
-    sorter: (a, b) => moment(a).isSameOrAfter(b),
+    defaultSortOrder: 'ascend',
+    sorter: (a, b) => moment(b).isSameOrAfter(a),
     render: createdAt => <ReactTimeago date={createdAt} />,
   },
   {

@@ -51,9 +51,15 @@ app.use(compression()); // compress response bodies
 // api routing
 app.use('/api', routes);
 
+const cacheAge = 24 * 60 * 60 * 1000;
 // to serve gzipped React app
 if (app.get('env') === 'production') {
-  app.use('/', expressStaticGzip('client/build', {}));
+  app.use(
+    '/',
+    expressStaticGzip('client/build', {
+      serveStatic: { maxAge: cacheAge, cacheControl: true },
+    })
+  );
   app.get('/*', function (_req, res) {
     res.sendFile(path.join(__dirname, '../client/build/index.html'), err => {
       if (err) {
