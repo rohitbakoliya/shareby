@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { BGWrapper } from './index.style';
-import { initialBlocks } from 'components/RichTextEditor/example';
+import { initialBlocks } from 'config/richText.example';
 import Layout from 'layouts/Root';
 import EditorLayout from 'layouts/Editor';
 import RichTextSharingOptions from 'components/SharingOptions/TextSharing';

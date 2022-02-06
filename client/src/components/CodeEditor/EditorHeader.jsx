@@ -27,7 +27,7 @@ const EditorHeader = ({ activeTab, handleActiveTab }) => {
     }
   };
 
-  const handlForkPaste = () => {
+  const handlForkShare = () => {
     history.push('/', { language, code: codes[language.id] });
   };
 
@@ -75,8 +75,8 @@ const EditorHeader = ({ activeTab, handleActiveTab }) => {
           <Row justify="space-between" align="stretch" className="header-options">
             {readOnly && (
               <>
-                <Tooltip title="fork paste to edit">
-                  <ForkOutlined onClick={handlForkPaste} style={{ fontSize: '22px' }} />
+                <Tooltip title="fork share to edit">
+                  <ForkOutlined onClick={handlForkShare} style={{ fontSize: '22px' }} />
                 </Tooltip>
                 <Divider
                   type="vertical"

@@ -27,6 +27,10 @@ const IndexPage = () => {
   const favLang = JSON.parse(localStorage.getItem('favLanguage'));
   const defaultCodes = JSON.parse(localStorage.getItem('defaultTemplates'));
 
+  /**
+   * routerState is used here because whenever someone forks the share then
+   * share details are propogated to `/` route using history
+   */
   const [language, setLanguage] = useState(
     (routerState && routerState.language) || favLang || initLang
   );

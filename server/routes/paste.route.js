@@ -2,7 +2,6 @@ import express from 'express';
 import {
   checkAccess,
   createPaste,
-  getAllPastes,
   getPasteByUrl,
   getRecentPublicPastes,
   protectedPaste,
@@ -11,7 +10,10 @@ import {
 
 const router = express.Router();
 
-router.get('/', getAllPastes);
+/**
+ * @deprecated
+ */
+// router.get('/', getAllPastes);
 
 router.post('/', createPaste);
 

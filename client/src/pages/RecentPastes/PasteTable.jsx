@@ -22,14 +22,14 @@ const columns = [
   {
     title: 'Created',
     dataIndex: 'createdAt',
-    defaultSortOrder: 'descend',
-    sorter: (a, b) => moment(a).isSameOrAfter(b),
+    defaultSortOrder: 'ascend',
+    sorter: (a, b) => moment(b).isSameOrAfter(a),
     render: createdAt => <ReactTimeago date={createdAt} />,
   },
   {
     title: 'Action',
     dataIndex: 'url',
-    render: url => <Link to={`/${url}`}>view paste</Link>,
+    render: url => <Link to={`/${url}`}>view share</Link>,
   },
 ];
 
@@ -37,7 +37,7 @@ const PastesTable = ({ data, loading }) => (
   <Table
     loading={loading}
     rowKey={row => row._id}
-    pagination={{ position: ['topRight'] }}
+    pagination={{ position: ['topRight'], showSizeChanger: false }}
     dataSource={data}
     columns={columns}
   />
