@@ -3,6 +3,7 @@ import { getUID } from '../services';
 import { validatePaste, validateUrl, validatePassword } from '../validators/paste.validator';
 import Paste from '../models/Paste';
 import { setCacheControlHeader } from '../middlewares/setCacheControlHeader';
+import { memCache, recentKey, getAccessKey } from '../services/cache';
 
 /**
  * @desc    to get all pastes
@@ -28,12 +29,17 @@ export const getAllPastes = async (req, res) => {
 export const getRecentPublicPastes = async (req, res) => {
   const MX_PASTES = 100;
   try {
+    const cachedData = memCache.get(recentKey);
+    if (cachedData) {
+      return res.status(httpStatus.OK).json({ data: cachedData });
+    }
     const pastes = await Paste.find({ access: 'public' })
       .select('-body -_id')
       .sort({ createdAt: -1 })
       .limit(MX_PASTES);
     pastes.sort((a, b) => new Date(a.createdAt).getTime() > new Date(b.createdAt).getTime());
 
+    memCache.set(recentKey, pastes);
     return res.status(httpStatus.OK).json({ data: pastes });
   } catch (err) {
     console.log(err);
@@ -71,6 +77,11 @@ export const createPaste = async (req, res) => {
       url,
     });
     const savedPaste = await paste.save();
+
+    // invalidate the cache
+    if (savedPaste.access === 'public' && memCache.get(recentKey)) {
+      memCache.del(recentKey);
+    }
     return res.status(httpStatus.CREATED).json({ data: savedPaste });
   } catch (err) {
     return res
@@ -90,7 +101,10 @@ export const checkAccess = async (req, res) => {
   if (error)
     return res.status(httpStatus.UNPROCESSABLE_ENTITY).json({ error: error.details[0].message });
   try {
-    const paste = await Paste.findOne({ url: value });
+    const accessKey = getAccessKey(url);
+    const cached = memCache.get(accessKey);
+
+    const paste = cached || (await Paste.findOne({ url: value }));
     if (!paste) {
       return res
         .status(httpStatus.NOT_FOUND)
@@ -98,9 +112,9 @@ export const checkAccess = async (req, res) => {
     }
 
     const data = {
-      // _id: paste._id,
       access: paste.access,
     };
+    memCache.set(accessKey, data);
 
     res.set('Cache-control', setCacheControlHeader(paste.expireAt));
     return res.status(httpStatus.OK).json({ data });
@@ -116,13 +130,15 @@ export const checkAccess = async (req, res) => {
  */
 export const getPasteByUrl = async (req, res) => {
   const url = req.params.url;
-  // TODO: need better nanoid validation
+
   const { error, value } = validateUrl(url);
   if (error)
     return res.status(httpStatus.UNPROCESSABLE_ENTITY).json({ error: error.details[0].message });
 
   try {
-    const paste = await Paste.findOne({ url: value });
+    const cachedData = memCache.get(url);
+
+    const paste = cachedData || (await Paste.findOne({ url: value }));
     if (!paste) {
       return res.status(httpStatus.NOT_FOUND).json({ error: `paste not found with ${url} url` });
     }
@@ -131,7 +147,7 @@ export const getPasteByUrl = async (req, res) => {
         .status(httpStatus.FORBIDDEN)
         .json({ error: `Access to this paste is not allowed` });
     }
-
+    memCache.set(url, paste);
     res.set('Cache-control', setCacheControlHeader(paste.expireAt));
 
     return res.status(httpStatus.OK).json({ data: paste });
