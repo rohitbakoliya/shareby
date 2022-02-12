@@ -7,7 +7,7 @@ const NotFound = () => {
       <ErrorHandler
         status={404}
         statusText="Page Not Found"
-        error="Sorry, the page you visited does not exist."
+        error="Sorry, the page you are looking for does not exist or is no longer available"
       />
     </Layout>
   );

@@ -18,6 +18,7 @@ import { copyToClipboard, http, shareURL, SERVER_URL, upperFirst } from 'utils';
 import { useState } from 'react';
 import { carbonDefaultParams } from 'config/carbonDefaults';
 import { SharedOptionsWrapper } from './Options.style';
+import { IMAGE_GEN_ENDPOINT } from 'config/constants';
 
 const openNotification = () => {
   notification.info({
@@ -54,12 +55,9 @@ const CodeShared = ({ data }) => {
     setNotified(true);
 
     try {
-      const resp = await http.post(
-        `https://carbon-ss.herokuapp.com/api/carbon-ss?${qs.stringify(carbonDefaultParams)}`,
-        {
-          data: data.body,
-        }
-      );
+      const resp = await http.post(IMAGE_GEN_ENDPOINT + `?${qs.stringify(carbonDefaultParams)}`, {
+        data: data.body,
+      });
       const imageBuffer = Buffer.from(resp.image, 'base64');
       FileSaver.saveAs(new Blob([imageBuffer]), `${data.url}.png`);
       setLoading(false);

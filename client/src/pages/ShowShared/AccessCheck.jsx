@@ -39,7 +39,7 @@ const AccessCheck = () => {
   if (isLoading) {
     return (
       <Row justify="center" align="middle">
-        <Spin tip={'Finding paste...'} size="large" />
+        <Spin tip={'Finding share...'} size="large" />
       </Row>
     );
   }

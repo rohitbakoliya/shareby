@@ -108,7 +108,7 @@ export const checkAccess = async (req, res) => {
     if (!paste) {
       return res
         .status(httpStatus.NOT_FOUND)
-        .json({ error: `The paste you are looking for is not found!` });
+        .json({ error: `The share you are looking for is not found or has been deleted!` });
     }
 
     const data = {

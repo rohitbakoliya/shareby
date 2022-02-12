@@ -22,8 +22,10 @@ export const OptionsContent = styled.div`
       text-overflow: ellipsis;
     }
   }
-  button {
-    position: fixed;
-    bottom: 20px;
+  @media (min-width: 992px) {
+    button {
+      position: fixed;
+      bottom: 20px;
+    }
   }
 `;

@@ -8,10 +8,14 @@ const layout = {
   wrapperCol: { span: 15 },
 };
 const tailLayout = {
-  wrapperCol: { offset: 7, span: 15 },
+  wrapperCol: {
+    lg: { offset: 7, span: 15 },
+    md: { offset: 7, span: 15 },
+    sm: { offset: 7, span: 15 },
+  },
 };
 const centerLayout = {
-  wrapperCol: { offset: 7, span: 17 },
+  wrapperCol: { offset: 7, span: 15 },
 };
 
 const SharingOptionsForm = ({ onFinish, checked, setChecked }) => {

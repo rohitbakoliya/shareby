@@ -36,8 +36,8 @@ const columns = [
 const PastesTable = ({ data, loading }) => (
   <Table
     loading={loading}
-    rowKey={row => row._id}
-    pagination={{ position: ['topRight'], showSizeChanger: false }}
+    rowKey={'url'}
+    pagination={{ position: ['topRight'] }}
     dataSource={data}
     columns={columns}
   />

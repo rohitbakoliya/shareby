@@ -11,18 +11,6 @@ import SEO from 'components/SEO';
 const IndexPage = () => {
   const { state: routerState } = useLocation();
 
-  /**
-   * Not good idea
-   const history = useHistory();
-   // to clear history state
-   useEffect(() => {
-     if (routerState) {
-       history.replace('/', undefined);
-      }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-    */
-
   const initLang = languages.find(lang => lang.name === 'plaintext');
   const favLang = JSON.parse(localStorage.getItem('favLanguage'));
   const defaultCodes = JSON.parse(localStorage.getItem('defaultTemplates'));

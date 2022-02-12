@@ -1,7 +1,8 @@
 export * from './getms';
 export * from './httpInstance';
 export * from './history';
-export * from './editorjs';
+export * from './editorjsParsers/htmlParser';
+export * from './editorjsParsers/mdParser';
 
 export const noop = () => {};
 

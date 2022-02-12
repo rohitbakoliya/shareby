@@ -37,7 +37,7 @@ const EditorHeader = ({ activeTab, handleActiveTab }) => {
         <Col>
           <Row justify="space-between" align="stretch">
             <Col>
-              <span>Language: </span>
+              <span className="select_language__label">Language: </span>
               <Select
                 showSearch
                 placeholder="Select a language"
