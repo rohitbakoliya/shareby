@@ -29,6 +29,13 @@ const openNotification = () => {
   });
 };
 
+export const formatter = (value, unit, suffix) => {
+  if (unit === 'second' && value < 15) return 'Just now';
+  if (unit === 'second') return `Few moments ${suffix}`;
+  const plural = value !== 1 ? 's' : '';
+  return `${value} ${unit}${plural} ${suffix}`;
+};
+
 const CodeShared = ({ data }) => {
   const [copied, setCopied] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -120,7 +127,7 @@ const CodeShared = ({ data }) => {
               <CalendarOutlined title="created at" />
             </Col>
             <Col span={18}>
-              <TimeAgo date={data.createdAt} />
+              <TimeAgo date={data.createdAt} formatter={formatter} />
             </Col>
             <Col span={6}>
               <ClockCircleOutlined title="expiretion" />

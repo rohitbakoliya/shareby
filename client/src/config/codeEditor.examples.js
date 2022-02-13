@@ -71,28 +71,6 @@ const examples = {
       guint8 bytes[16];
     } GUuid;
 
-    /**
-     * SECTION:uuid
-     * @title: GUuid
-     * @short_description: a universally unique identifier
-     *
-     * A UUID, or Universally unique identifier, is intended to uniquely
-     * identify information in a distributed environment. For the
-     * definition of UUID, see [RFC 4122](https://tools.ietf.org/html/rfc4122.html).
-     *
-     * The creation of UUIDs does not require a centralized authority.
-     *
-     * UUIDs are of relatively small size (128 bits, or 16 bytes). The
-     * common string representation (ex:
-     * 1d6c0810-2bd6-45f3-9890-0268422a6f14) needs 37 bytes.
-     *
-     * The UUID specification defines 5 versions, and calling
-     * g_uuid_string_random() will generate a unique (or rather random)
-     * UUID of the most common version, version 4.
-     *
-     * Since: 2.52
-     */
-
     /*
      * g_uuid_to_string:
      * @uuid: a #GUuid
@@ -156,30 +134,6 @@ const examples = {
         *uuid = tmp;
 
       return TRUE;
-    }
-
-    /**
-     * g_uuid_string_is_valid:
-     * @str: a string representing a UUID
-     *
-     * Parses the string @str and verify if it is a UUID.
-     *
-     * The function accepts the following syntax:
-     *
-     * - simple forms (e.g. \`f81d4fae-7dec-11d0-a765-00a0c91e6bf6\`)
-     *
-     * Note that hyphens are required within the UUID string itself,
-     * as per the aforementioned RFC.
-     *
-     * Returns: %TRUE if @str is a valid UUID, %FALSE otherwise.
-     * Since: 2.52
-     */
-    gboolean
-    g_uuid_string_is_valid (const gchar *str)
-    {
-      g_return_val_if_fail (str != NULL, FALSE);
-
-      return uuid_parse_string (str, NULL);
     }
 
     static void
@@ -351,16 +305,16 @@ const examples = {
     int main()
     {
       int n;
-      std::cout << "Enter number\n";
+      std::cout << "Enter number\\n";
       std::cin >> n;
       std::vector<int> prime_factors;
       prime_factors = find_prime_factors(n);
-      std::cout << "Prime Factors of " << n << ":\n";
+      std::cout << "Prime Factors of " << n << ":\\n";
       for (int i = 0; i < prime_factors.size(); i++)
       {
         std::cout << prime_factors[i] << " ";
       }
-      std::cout << "\n";
+      std::cout << "\\n";
     }
   `),
   8: rTabs(`
@@ -666,22 +620,6 @@ const examples = {
         "408": "This request took a century to process and didn't even finished.",
         "500": "Our server is a little bit sad now, try again later.",
         "503": "Our server is too tired now, try again after a short break."
-      },
-      "general_error_messages": {
-        "no_active": "No active battle.",
-        "not_started": "Battle hasn't started yet.",
-        "started": "Battle has already started.",
-        "finished": "Battle has already finished.",
-        "invalid_data": "Invalid Data.",
-        "no_data": "Data is not passed.",
-        "not_admin": "Our admin has all possible, 4 incredible and 2 impossible rights, but you aren't our admin.",
-        "challenge_not_started": "Can't submit unbegun battle challenges.",
-        "admin_challenge": "Admin can't solve challenges.",
-        "already_solved": "This challenge has already been solved by your team.",
-        "better_solution": "The previous vesrion of your team is better.",
-        "no_challenge": "There is no challenge mentioned by you!",
-        "auth_fail": "Authentication failed.",
-        "short_password": "Password should be at least 6 chars long."
       }
     }
   `),
@@ -1208,61 +1146,7 @@ This is an example of how to list things you need to use the software and how to
                      (do ((j 0 (+ j 1)))
                          ((= j nc))
                          (matrix-set! r i j
-                            (* x (matrix-ref m i j))))))))
-
-        ;; mat-mat-mul multiplies one matrix by another, after verifying
-        ;; that the first matrix has as many columns as the second
-        ;; matrix has rows.
-        (define mat-mat-mul
-           (lambda (m1 m2)
-              (let* ((nr1 (matrix-rows m1))
-                     (nr2 (matrix-rows m2))
-                     (nc2 (matrix-columns m2))
-                     (r   (make-matrix nr1 nc2)))
-                 (if (not (= (matrix-columns m1) nr2))
-                     (match-error m1 m2))
-                 (do ((i 0 (+ i 1)))
-                     ((= i nr1) r)
-                     (do ((j 0 (+ j 1)))
-                         ((= j nc2))
-                         (do ((k 0 (+ k 1))
-                              (a 0
-                                 (+ a
-                                    (* (matrix-ref m1 i k)
-                                       (matrix-ref m2 k j)))))
-                             ((= k nr2)
-                              (matrix-set! r i j a))))))))
-
-       ;; type-error is called to complain when mul receives an invalid
-       ;; type of argument.
-        (define type-error
-           (lambda (what)
-              (error 'mul
-                 "~s is not a number or matrix"
-                 what)))
-
-        ;; match-error is called to complain when mul receives a pair of
-        ;; incompatible arguments.
-        (define match-error
-           (lambda (what1 what2)
-              (error 'mul
-                 "~s and ~s are incompatible operands"
-                 what1
-                 what2)))
-
-        ;; body of mul; dispatch based on input types
-        (cond
-          ((number? x)
-           (cond
-             ((number? y) (* x y))
-             ((matrix? y) (mat-sca-mul y x))
-             (else (type-error y))))
-          ((matrix? x)
-           (cond
-             ((number? y) (mat-sca-mul x y))
-             ((matrix? y) (mat-mat-mul x y))
-             (else (type-error y))))
-          (else (type-error x)))))
+                            (* x (matrix-ref m i j))))))))))
   `),
   46: rTabs(`
     $baseFontSizeInPixels: 14;
@@ -1282,14 +1166,6 @@ This is an example of how to list things you need to use the software and how to
     }
 
     nav {
-      ul {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-      }
-
-      li { display: inline-block; }
-
       a {
         display: block;
         padding: 6px 12px;

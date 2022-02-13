@@ -13,6 +13,7 @@ import { SharedOptionsWrapper } from './Options.style';
 import TimeAgo from 'react-timeago';
 import FileSaver from 'file-saver';
 import { useHistory } from 'react-router-dom';
+import { formatter } from './CodeShared';
 
 const TextShared = ({ data }) => {
   const history = useHistory();
@@ -84,7 +85,7 @@ const TextShared = ({ data }) => {
               <CalendarOutlined title="created at" />
             </Col>
             <Col span={18}>
-              <TimeAgo date={data.createdAt} />
+              <TimeAgo date={data.createdAt} formatter={formatter} />
             </Col>
             <Col span={6}>
               <ClockCircleOutlined title="expiretion" />

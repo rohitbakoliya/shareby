@@ -9,7 +9,7 @@ export const CodeEditorContainer = styled.section`
   box-shadow: ${p => p.theme.shadows.large};
 
   @media screen and (max-width: ${p => p.theme.media.sm}) {
-    padding: 8px 8px 70px 8px;
+    padding: 10px 8px 70px 8px;
   }
 `;
 
@@ -56,7 +56,6 @@ export const EditorHeaderWrapper = styled.div`
   height: 30px;
   width: 100%;
   margin-bottom: 20px;
-
   .header-options .anticon {
     transition: color 0.3s;
     &:hover {
@@ -75,10 +74,13 @@ export const EditorHeaderWrapper = styled.div`
     &:last-child {
       margin-left: 0px;
     }
-    span.text-span {
+    & span.text-span {
       font-weight: 600;
-      margin-right: 0;
       user-select: none;
+      margin-left: 8px;
+      @media screen and (max-width: ${p => p.theme.media.sm}) {
+        display: none;
+      }
     }
   }
   .tab--col-md.active {

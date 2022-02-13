@@ -18,3 +18,24 @@ export const intellisense = {
   suggestSelection: true,
   wordBasedSuggestions: true,
 };
+
+export const mobOptions = {
+  tabSize: 2,
+  fontSize: '11px',
+  readOnly: false,
+  intellisense: true,
+  wordWrap: 'off',
+  minimap: {
+    enabled: false,
+  },
+  lineNumbersMinChars: 2,
+  lineNumbers: 'off',
+};
+
+export const defaultOptions = {
+  tabSize: 4,
+  fontSize: '14px',
+  readOnly: false,
+  intellisense: true,
+  wordWrap: 'off',
+};

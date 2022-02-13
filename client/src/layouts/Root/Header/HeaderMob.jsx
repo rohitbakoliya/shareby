@@ -1,4 +1,4 @@
-import { MenuOutlined } from '@ant-design/icons';
+import { MenuFoldOutlined } from '@ant-design/icons';
 import { Drawer } from 'antd';
 import { useState } from 'react';
 import { MenulistMob } from './MenulistMob';
@@ -11,7 +11,7 @@ const HeaderMob = () => {
   };
   return (
     <div>
-      <MenuOutlined onClick={handleCloseMenu} />
+      <MenuFoldOutlined style={{ fontSize: '20px' }} onClick={handleCloseMenu} />
       <Drawer
         className="nav__drawer"
         placement="right"

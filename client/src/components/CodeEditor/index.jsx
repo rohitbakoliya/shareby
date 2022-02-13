@@ -3,14 +3,10 @@ import React, { useState } from 'react';
 import Editor from './Editor';
 import { CodeEditorContainer } from './Editor.style';
 import EditorHeader from './EditorHeader';
+import { Grid } from 'antd';
+import { initOptions } from './config';
 
-const initOptions = {
-  tabSize: 4,
-  fontSize: '14px',
-  readOnly: false,
-  intellisense: true,
-  wordWrap: 'off',
-};
+const { useBreakpoint } = Grid;
 
 const CodeEditor = ({ defaultOptions }) => {
   // active tab -> used in markdown preview
@@ -18,6 +14,9 @@ const CodeEditor = ({ defaultOptions }) => {
   const handleActiveTab = tabInd => {
     setActiveTab(tabInd);
   };
+  const screens = useBreakpoint();
+
+  initOptions = { ...initOptions };
 
   const favOptions = JSON.parse(localStorage.getItem('favOptions'));
   const favTheme = localStorage.getItem('editorTheme');
