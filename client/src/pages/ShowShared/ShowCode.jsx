@@ -29,7 +29,7 @@ const ShowSharedPaste = ({ data }) => {
       <SEO title={data.title} slug={data.url} isShare={true} />
       <LangValContext.Provider value={{ language, handleLangChange, codes, handleCodeChange }}>
         <EditorLayout
-          left={<CodeEditor defaultOptions={{ readOnly: true }} />}
+          left={<CodeEditor defaultOptionsProps={{ readOnly: true }} />}
           right={<SharedOptions data={data} />}
         />
       </LangValContext.Provider>

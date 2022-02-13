@@ -1,4 +1,4 @@
-import { getNanoId, getUID } from '../services/UIdGenerator';
+import { getUID } from '../services';
 
 function collisionTest(fun, iterations = 1e6) {
   const track = new Set();
@@ -17,4 +17,3 @@ function collisionTest(fun, iterations = 1e6) {
 }
 
 collisionTest(getUID);
-collisionTest(getNanoId);

@@ -3,6 +3,11 @@ import { LinkOutlined } from '@ant-design/icons';
 import { shareURL } from 'utils';
 import PropTypes from 'prop-types';
 
+const layout = {
+  labelCol: { span: 7 },
+  wrapperCol: { span: 15 },
+};
+
 const UnlockPasteForm = ({ isLoading, url, onFinish }) => (
   <Card
     title={
@@ -18,7 +23,7 @@ const UnlockPasteForm = ({ isLoading, url, onFinish }) => (
       </Typography.Title>
     }
   >
-    <Form onFinish={onFinish}>
+    <Form {...layout} onFinish={onFinish}>
       <Form.Item
         label="Password"
         name="password"

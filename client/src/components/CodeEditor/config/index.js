@@ -38,4 +38,39 @@ export const defaultOptions = {
   readOnly: false,
   intellisense: true,
   wordWrap: 'off',
+  minimap: {
+    enabled: true,
+  },
+  lineNumbersMinChars: 5,
+  lineNumbers: 'on',
 };
+
+export const defaultFontSizeOptions = [
+  {
+    label: 'Small',
+    value: '14px',
+  },
+  {
+    label: 'Medium',
+    value: '17px',
+  },
+  {
+    label: 'Large',
+    value: '20px',
+  },
+];
+
+export const mobFontSizeOptions = [
+  {
+    label: 'Small',
+    value: '11px',
+  },
+  {
+    label: 'Medium',
+    value: '13px',
+  },
+  {
+    label: 'Large',
+    value: '15px',
+  },
+];

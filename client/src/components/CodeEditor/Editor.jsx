@@ -11,6 +11,7 @@ import { CodeEditorWrapper } from './Editor.style';
 
 const Editor = React.memo(({ activeTab }) => {
   const { es } = useContext(CodeEditorContext);
+
   const { codes, handleCodeChange, language } = useContext(LangValContext);
   let options = { ...es.options };
   delete options.intellisense;

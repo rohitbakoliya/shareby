@@ -1,7 +1,10 @@
-import { Radio, Form, Button, Col, Row } from 'antd';
+import { Radio, Form, Button, Col, Row, Grid } from 'antd';
 import CodeEditorContext from 'contexts/codeEditorContext';
 import LangValContext from 'contexts/langValContext';
 import { useContext } from 'react';
+import { defaultFontSizeOptions, mobFontSizeOptions } from '../config';
+
+const { useBreakpoint } = Grid;
 
 const layout = {
   labelCol: { span: 8 },
@@ -10,11 +13,14 @@ const layout = {
 
 const SettingMenu = () => {
   const [form] = Form.useForm();
+  const screens = useBreakpoint();
+
   const {
     es: { theme, options },
     toggleTheme,
     updateOptions,
   } = useContext(CodeEditorContext);
+
   const { codes, language } = useContext(LangValContext);
 
   const handleChange = () => {
@@ -113,20 +119,7 @@ const SettingMenu = () => {
         </Form.Item>
         <Form.Item label="Font Size" name="fontSize">
           <Radio.Group
-            options={[
-              {
-                label: 'Small',
-                value: '14px',
-              },
-              {
-                label: 'Medium',
-                value: '17px',
-              },
-              {
-                label: 'Large',
-                value: '20px',
-              },
-            ]}
+            options={screens.xs ? mobFontSizeOptions : defaultFontSizeOptions}
             size="small"
             onChange={handleChange}
             optionType="button"
@@ -166,6 +159,24 @@ const SettingMenu = () => {
               {
                 label: 'Disable',
                 value: false,
+              },
+            ]}
+            size="small"
+            onChange={handleChange}
+            optionType="button"
+            buttonStyle="solid"
+          />
+        </Form.Item>
+        <Form.Item name="lineNumbers" label={'Line Number'}>
+          <Radio.Group
+            options={[
+              {
+                label: 'Show',
+                value: 'on',
+              },
+              {
+                label: 'Hide',
+                value: 'off',
               },
             ]}
             size="small"

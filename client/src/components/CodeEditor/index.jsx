@@ -1,29 +1,39 @@
+import React, { useState, useEffect } from 'react';
+import { Grid } from 'antd';
 import CodeEditorContext from 'contexts/codeEditorContext';
-import React, { useState } from 'react';
 import Editor from './Editor';
 import { CodeEditorContainer } from './Editor.style';
 import EditorHeader from './EditorHeader';
-import { Grid } from 'antd';
-import { initOptions } from './config';
+import { defaultOptions, mobOptions } from './config';
 
 const { useBreakpoint } = Grid;
 
-const CodeEditor = ({ defaultOptions }) => {
+const CodeEditor = ({ defaultOptionsProps }) => {
   // active tab -> used in markdown preview
   const [activeTab, setActiveTab] = useState(0);
+
   const handleActiveTab = tabInd => {
     setActiveTab(tabInd);
   };
-  const screens = useBreakpoint();
 
-  initOptions = { ...initOptions };
+  const screens = useBreakpoint();
 
   const favOptions = JSON.parse(localStorage.getItem('favOptions'));
   const favTheme = localStorage.getItem('editorTheme');
+
   const [es, setEs] = useState({
     theme: favTheme || 'light',
-    options: { ...(favOptions || initOptions), ...defaultOptions },
+    options: { ...defaultOptions, ...favOptions, ...defaultOptionsProps },
   });
+
+  // handles mobile view with different editor options
+  useEffect(() => {
+    if (screens.xs) {
+      const initOptions = { ...mobOptions, ...favOptions, ...defaultOptionsProps };
+      updateOptions(initOptions);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [screens.sm]);
 
   const updateOptions = options => {
     setEs(_es => ({
@@ -41,6 +51,7 @@ const CodeEditor = ({ defaultOptions }) => {
       theme: _es.theme === 'light' ? 'vs-dark' : 'light',
     }));
   };
+
   return (
     <CodeEditorContext.Provider value={{ es, updateOptions, toggleTheme }}>
       <CodeEditorContainer th={es.theme}>

@@ -12,10 +12,11 @@ import {
   LinkOutlined,
 } from '@ant-design/icons';
 import TimeAgo from 'react-timeago';
+import { useHistory } from 'react-router-dom';
 import FileSaver from 'file-saver';
 import qs from 'qs';
 import { copyToClipboard, http, shareURL, SERVER_URL, upperFirst } from 'utils';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { carbonDefaultParams } from 'config/carbonDefaults';
 import { SharedOptionsWrapper } from './Options.style';
 import { IMAGE_GEN_ENDPOINT } from 'config/constants';
@@ -40,6 +41,7 @@ const CodeShared = ({ data }) => {
   const [copied, setCopied] = useState(false);
   const [loading, setLoading] = useState(false);
   const [notified, setNotified] = useState(false);
+  const history = useHistory();
 
   const handleCopyCode = () => {
     if (copied) return;
@@ -73,6 +75,15 @@ const CodeShared = ({ data }) => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (data && data.expireAt) {
+      const timeLeft = new Date(data.expireAt) - new Date().getTime();
+      setTimeout(() => {
+        history.push('/');
+      }, timeLeft);
+    }
+  }, [data, history]);
 
   return (
     <SharedOptionsWrapper>

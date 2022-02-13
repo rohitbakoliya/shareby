@@ -4,7 +4,9 @@ export const OptionsWrapper = styled.div`
   padding-top: 10px;
   height: 100%;
   width: 100%;
+  overflow-x: hidden; /* Options form from antd is creating overflow*/
 `;
+
 export const OptionsContent = styled.div`
   padding: 10px 0 10px 15px;
   height: 100%;

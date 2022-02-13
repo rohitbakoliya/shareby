@@ -1,0 +1,62 @@
+Collision test: 2756.376ms
+Total iterations: 1000000
+Total collisions: 0
+Total unique ids: 1000000
+
+----------------------------------
+
+Collision test: 2727.854ms
+Total iterations: 1000000
+Total collisions: 0
+Total unique ids: 1000000
+
+----------------------------------
+
+Collision test: 2776.555ms
+Total iterations: 1000000
+Total collisions: 1
+Total unique ids: 999999
+
+----------------------------------
+
+Collision test: 2759.701ms
+Total iterations: 1000000
+Total collisions: 0
+Total unique ids: 1000000
+
+----------------------------------
+
+Collision test: 3.022s
+Total iterations: 1000000
+Total collisions: 0
+Total unique ids: 1000000
+
+----------------------------------
+
+Collision test: 3.072s
+Total iterations: 1000000
+Total collisions: 0
+Total unique ids: 1000000
+
+----------------------------------
+
+Collision test: 3.005s
+Total iterations: 1000000
+Total collisions: 0
+Total unique ids: 1000000
+
+----------------------------------
+
+Collision test: 2.967s
+Total iterations: 1000000
+Total collisions: 0
+Total unique ids: 1000000
+
+----------------------------------
+
+Collision test: 2.967s
+Total iterations: 1000000
+Total collisions: 0
+Total unique ids: 1000000
+
+----------------------------------

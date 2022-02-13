@@ -16,6 +16,11 @@ const ShowProtectedWrapper = styled.div`
   .ant-card {
     min-width: 500px;
   }
+  @media screen and (max-width: ${p => p.theme.media.sm}) {
+    .ant-card {
+      min-width: fit-content;
+    }
+  }
 `;
 
 const ShowProtected = ({ url }) => {

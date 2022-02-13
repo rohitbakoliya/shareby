@@ -7,6 +7,7 @@ import {
   LockOutlined,
   LinkOutlined,
 } from '@ant-design/icons';
+import { useEffect } from 'react';
 import { Card, Col, Row, Tooltip, Typography } from 'antd';
 import { htmlParser, mdParser, shareURL, upperFirst } from 'utils';
 import { SharedOptionsWrapper } from './Options.style';
@@ -20,6 +21,16 @@ const TextShared = ({ data }) => {
   const handleFork = () => {
     history.push(`/r`, data.body);
   };
+
+  // To remove the expired shares
+  useEffect(() => {
+    if (data && data.expireAt) {
+      const timeLeft = new Date(data.expireAt) - new Date().getTime();
+      setTimeout(() => {
+        history.push('/r');
+      }, timeLeft);
+    }
+  }, [data, history]);
 
   const downloadHtml = () => {
     const blocks = JSON.parse(data.body);
